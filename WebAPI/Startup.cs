@@ -20,6 +20,8 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using WebAPI.Hubs;
+
 
 namespace WebAPI
 {
@@ -29,13 +31,14 @@ namespace WebAPI
         {
             Configuration = configuration;
         }
+        readonly string MyAllowSpecificOrigins = "_myAllowAll";
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            //services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -49,6 +52,17 @@ namespace WebAPI
             services.AddScoped<IValidService, ValidService>();// Can need
             services.AddScoped<IAuthorService, AuthorService>();
 
+            services.AddCors(action =>
+                action.AddPolicy(MyAllowSpecificOrigins, builder =>
+                 builder.WithOrigins("http://localhost:3000","*")
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .SetIsOriginAllowed(_ => true)// Remember the last life
+                 .SetIsOriginAllowedToAllowWildcardSubdomains()
+                 .AllowCredentials()));
+
+            services.AddSignalR();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -57,7 +71,7 @@ namespace WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IOptions<AppSettings> appSet)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<AppSettings> appSet)
         {
             if (env.IsDevelopment())
             {
@@ -68,19 +82,23 @@ namespace WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors(options =>
-            {
-                options.AllowAnyHeader();
-                options.AllowAnyMethod();
-                options.AllowAnyOrigin();
-            });
 
-            app.Use(async (context,next) =>
+            app.UseCors(MyAllowSpecificOrigins);
+
+            //app.UseCors(options =>
+            //{
+            //    options.AllowAnyHeader();
+            //    options.AllowAnyMethod();
+            //    options.AllowAnyOrigin();
+            //    options.AllowCredentials();
+            //});
+
+            app.Use(async (context, next) =>
             {
                 var serviceCheck = context.RequestServices.GetService<IValidService>();
                 var appsetting = appSet;
                 string token = context.Request.Headers["Authorization"];
-                if (token!=null)
+                if (token != null)
                 {
                     var keySecret = appsetting.Value.Secret;
 
@@ -129,7 +147,15 @@ namespace WebAPI
                 FileProvider = new PhysicalFileProvider(myRoot),
                 RequestPath = "/Assert"
             });
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<HubCentral>("/hubCentral");
+            });
+
+
             app.UseHttpsRedirection();
+
             app.UseMvc();
         }
     }
