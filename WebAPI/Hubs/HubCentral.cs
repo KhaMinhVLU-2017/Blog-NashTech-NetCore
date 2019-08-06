@@ -16,6 +16,9 @@ namespace WebAPI.Hubs
         {
             _db = db;
         }
+        /**
+         * Manage Comment
+         */
         public async Task SendComment([FromForm]Comment CommentRE)
         {
 
@@ -29,6 +32,26 @@ namespace WebAPI.Hubs
             };
             var Comment = JsonConvert.SerializeObject(comment);
             await Clients.All.SendAsync("ReceiveComment", Comment);
+        }
+
+        public async Task DeleteComment(int commentID)
+        {
+            await Clients.All.SendAsync("ReceiveDelete", commentID);
+        }
+
+        public async Task EditComment([FromForm]Comment Comment)
+        {
+
+            var comment = new
+            {
+                userID = Comment.UserID,
+                content = Comment.Content,
+                crDate = Comment.crDate,
+                commentID = Comment.CommentID,
+                authorComment = _db.User.Find(Comment.UserID).Fullname
+            };
+            var commentJSON = JsonConvert.SerializeObject(comment);
+            await Clients.All.SendAsync("ReceiveEdit", commentJSON);
         }
     }
 }
