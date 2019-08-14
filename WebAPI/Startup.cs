@@ -47,6 +47,16 @@ namespace WebAPI
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);// Can need
 
+            // Config for deploy
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
+
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();// Can need
             services.AddScoped<IValidService, ValidService>();// Can need
@@ -54,7 +64,11 @@ namespace WebAPI
 
             services.AddCors(action =>
                 action.AddPolicy(MyAllowSpecificOrigins, builder =>
+<<<<<<< HEAD
                  builder.WithOrigins( new string[] { "http://localhost:3000", "http://localhost:4200", "*" })
+=======
+                 builder.WithOrigins(new[] { "http://localhost:3000", "http://localhost:4200", "*" })
+>>>>>>> d2b895ae880c2479706282aeb25cf44d36df929c
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .SetIsOriginAllowed(_ => true)// Remember the last life
