@@ -14,6 +14,8 @@ using WebAPI.Helpers;
 using Newtonsoft.Json;
 using WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using LazZiya.ImageResize;
 
 namespace WebAPI.Controllers
 {
@@ -48,16 +50,20 @@ namespace WebAPI.Controllers
                     {
                         return Json(new { status = 500, message = "Server Interval" });
                     }
+
                     decodeUser.UserID = int.Parse(UserID.ToString());
                     decodeUser.RoleID = int.Parse(RoleID.ToString());
 
                     // Create BLog
-                    Blog blogNew = new Blog();
-                    blogNew.Content = blog.Content;
-                    blogNew.Sapo = blog.Sapo;
-                    blogNew.Title = blog.Title;
-                    blogNew.crDate = DateTime.Now;
-                    blogNew.AuthorID = decodeUser.UserID;
+                    Blog blogNew = new Blog
+                    {
+                        Content = blog.Content,
+                        Sapo = blog.Sapo,
+                        Title = blog.Title,
+                        crDate = DateTime.Now,
+                        AuthorID = decodeUser.UserID
+                    };
+                    
                     if (file != null)
                     {
                         blogNew.Picture = file.FileName;
@@ -224,6 +230,81 @@ namespace WebAPI.Controllers
             catch (Exception e)
             {
                 return Json(new { status = 500, blog = "", message = "Server Interval " + e });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SaveIMG(IFormFile file)
+        {
+            try
+            {
+                if (file != null)
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadedImage = Image.FromStream(stream);
+
+                        int height = uploadedImage.Height;
+                        int width = uploadedImage.Width;
+
+                        int ratiO = height / width;
+
+                        int widthNew = 500;
+
+                        //returns Image file
+                        var img = ImageResize.Scale(uploadedImage,widthNew, widthNew * ratiO);
+
+                        var path = Path.Combine(
+                                          Directory.GetCurrentDirectory(), "Assert/ImagesBlog",
+                                          file.FileName);
+
+                        img.SaveAs(path);
+
+                        string url = string.Format("http://{0}/assert/imagesblog/{1}", Request.Host.ToString(), file.FileName);
+
+                        return Json(new
+                        {
+                            status = true,
+                            originalName = file.FileName,
+                            generatedName = file.FileName,
+                            msg = "Image upload successful",
+                            imageUrl = url
+                        });
+                    }
+                    //var path = Path.Combine(
+                    //                  Directory.GetCurrentDirectory(), "Assert/ImagesBlog",
+                    //                  file.FileName);
+                    //using (var stream = new FileStream(path, FileMode.Create))
+                    //{
+                    //    file.CopyTo(stream);
+                    //    stream.Close();
+                    //}
+
+                    //string url = string.Format("http://{0}/assert/imagesblog/{1}", Request.Host.ToString(), file.FileName);
+                    //return Json(new {
+                    //    status =true,
+                    //    originalName = file.FileName,
+                    //    generatedName = file.FileName,
+                    //    msg = "Image upload successful",
+                    //    imageUrl = url
+                    //});
+                }
+                return Json(new {
+                    status = false,
+                    originalName = "Error",
+                    generatedName = "Error",
+                    msg = "Image upload failed",
+                });
+            }
+            catch(Exception e)
+            {
+                return Json(new
+                {
+                    status = false,
+                    originalName = "Error",
+                    generatedName = "Error",
+                    msg = "Image upload failed",
+                });
             }
         }
 

@@ -54,7 +54,7 @@ namespace WebAPI
 
             services.AddCors(action =>
                 action.AddPolicy(MyAllowSpecificOrigins, builder =>
-                 builder.WithOrigins("http://localhost:3000","*")
+                 builder.WithOrigins( new string[] { "http://localhost:3000", "http://localhost:4200", "*" })
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .SetIsOriginAllowed(_ => true)// Remember the last life

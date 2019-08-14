@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "604b969beaf4627e08dc53cde163512f9a148b6e"
+    "signature": "8e5c45f3b2c4d050d97a03177f69f20376ceaf00"
   },
   "compilationOptions": {
     "defines": [
@@ -26,6 +26,7 @@
         "dependencies": {
           "BCrypt.Net-Core": "1.6.0",
           "JWT": "5.2.2",
+          "LazZiya.ImageResize": "2.0.0",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.AspNetCore.SignalR": "1.1.0",
@@ -91,6 +92,20 @@
           "lib/netstandard2.0/JWT.dll": {}
         }
       },
+      "LazZiya.ImageResize/2.0.0": {
+        "dependencies": {
+          "System.Drawing.Common": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/LazZiya.ImageResize.dll": {
+            "assemblyVersion": "2.2.5.61",
+            "fileVersion": "2.2.5.55"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.1/LazZiya.ImageResize.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore/2.2.6": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "2.2.6",
@@ -139,6 +154,25 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Proxies.dll": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
         }
       },
       "Newtonsoft.Json/12.0.2": {
@@ -229,6 +263,35 @@
             "rid": "win",
             "assetType": "runtime"
           }
+        }
+      },
+      "System.Drawing.Common/4.5.1": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.2.0",
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          },
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Drawing.Common.dll": {}
         }
       },
       "System.Interactive.Async/3.2.0": {
@@ -3397,6 +3460,13 @@
       "path": "jwt/5.2.2",
       "hashPath": "jwt.5.2.2.nupkg.sha512"
     },
+    "LazZiya.ImageResize/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aqM/IvN+XDl/Izxv6tV54Y+wOVubXvpGe5713t7CDa72UtnSe68HA2egw5gO1e7X6QR27SkwX7GTk3/0lXahZA==",
+      "path": "lazziya.imageresize/2.0.0",
+      "hashPath": "lazziya.imageresize.2.0.0.nupkg.sha512"
+    },
     "Microsoft.EntityFrameworkCore/2.2.6": {
       "type": "package",
       "serviceable": true,
@@ -3424,6 +3494,13 @@
       "sha512": "sha512-VLb/687nsnOfLrz6mp1O/NkPl9Vfel8k1iYm7TNnO7RsskSE44mD6pi1h/aR6MWzen2LK2fKZn4qpkn4rXgLeA==",
       "path": "microsoft.entityframeworkcore.proxies/2.2.6",
       "hashPath": "microsoft.entityframeworkcore.proxies.2.2.6.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K2TAr07pgl/m/J9ed3cmAzx0SD55kYuVfBG6SPRIH/ELTh/D2qGrjOWDQJo7r+LZl1nO2Nkl0UAQBUt6S2ewqQ==",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "hashPath": "microsoft.win32.systemevents.4.5.0.nupkg.sha512"
     },
     "Newtonsoft.Json/12.0.2": {
       "type": "package",
@@ -3473,6 +3550,13 @@
       "sha512": "sha512-BlWWL9q/HKM0KBzuOSOqchFga5MqnvkK5mb+IU7f4ecInSyghlswR3ib3nww1ruBmLrtdI5coCBB2H2AltTFyA==",
       "path": "system.diagnostics.tracesource/4.3.0",
       "hashPath": "system.diagnostics.tracesource.4.3.0.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m3c7Fe/CS/jZ/nLBrxCCh52dYiC33GPbGfcF4CiVukb8+p121XUTHxs6sYKbWfvDVD8JssHcM+HVFLtzl3X3Xw==",
+      "path": "system.drawing.common/4.5.1",
+      "hashPath": "system.drawing.common.4.5.1.nupkg.sha512"
     },
     "System.Interactive.Async/3.2.0": {
       "type": "package",
