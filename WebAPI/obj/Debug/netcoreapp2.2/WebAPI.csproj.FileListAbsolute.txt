@@ -12,3 +12,11 @@ D:\Project\blog-nashtech-backend\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.AssemblyI
 D:\Project\blog-nashtech-backend\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.RazorTargetAssemblyInfo.cache
 D:\Project\blog-nashtech-backend\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.dll
 D:\Project\blog-nashtech-backend\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.pdb
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.csprojResolveAssemblyReference.cache
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.csproj.CoreCompileInputs.cache
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.RazorAssemblyInfo.cache
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.RazorAssemblyInfo.cs
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.AssemblyInfoInputs.cache
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.AssemblyInfo.cs
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.dll
+D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.pdb
