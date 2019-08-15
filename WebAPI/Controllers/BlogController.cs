@@ -189,7 +189,7 @@ namespace WebAPI.Controllers
                 var blogDB = _db.Blog.Find(id);
                 if (blogDB == null)
                 {
-                    return Json(new { status = 200,blog=blogDB, message = "Blog empty" });
+                    return Json(new { status = 404,blog=blogDB, message = "Blog empty" });
                 }
 
                 //Compare blog
@@ -221,7 +221,78 @@ namespace WebAPI.Controllers
 
                 if (blog == null)
                 {
-                    return Json(new { status = 200, blog, message = "Blog empty" });
+                    return Json(new { status = 404, blog, message = "Blog empty" });
+                }
+
+
+                return Json(new { status = 200, blog, message = "Get Blog" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = 500, blog = "", message = "Server Interval " + e });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetForEdit(int id)
+        {
+            try
+            {
+                bool Edit = false;
+                var UserID = HttpContext.Items["UserID"];
+                //Parse ID
+                int UserIDToken;
+                if (UserID == null)
+                {
+                    Edit = false;
+                    UserIDToken = -1;
+                }
+                else
+                {
+                    UserIDToken = int.Parse(UserID.ToString());
+                }
+
+                var blogDB = _db.Blog.Find(id);
+                if (blogDB == null)
+                {
+                    return Json(new { status = 404, blog = blogDB, message = "Blog empty" });
+                }
+
+                //Compare blog
+                if (UserIDToken == blogDB.AuthorID)
+                {
+                    Edit = true;
+                }
+
+                var blog = _db.Blog.Select(s => new
+                {
+                    s.BlogID,
+                    s.Title,
+                    s.Sapo,
+                    s.Content,
+                    s.Picture,
+                    s.crDate,
+                    edit = Edit,
+                    listComment = s.Comment.Select(w => new
+                    {
+                        w.CommentID,
+                        w.Content,
+                        w.crDate,
+                        w.UserID,
+                        AuthorComment = w.User.Fullname
+                    }).OrderByDescending(q => q.crDate).ToList(),
+                    AuthorName = s.Author.Fullname,
+                    s.AuthorID
+                }).FirstOrDefault(s => s.BlogID == id);
+
+                if (blog.AuthorID != UserIDToken)
+                {
+                    return Json(new { status = 403, blog="", message = "Forbidden" });
+                }
+
+                if (blog == null)
+                {
+                    return Json(new { status = 404, blog, message = "Blog empty" });
                 }
 
 

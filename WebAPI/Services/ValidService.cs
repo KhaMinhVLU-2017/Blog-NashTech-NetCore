@@ -28,7 +28,13 @@ namespace WebAPI.Services
 
         public string CheckToken(string Token,string KeySecret)
         {
-            string token = Token;
+         
+
+            string[] arrToken = Token.Split(".");
+            int lengthSalt = _appsettings.Salt.Length;
+            string tokenSecond = arrToken[1].Substring(lengthSalt);
+
+            string token = string.Format("{0}.{1}.{2}",arrToken[0], tokenSecond,arrToken[2]);
             string secret = KeySecret;
 
             try
