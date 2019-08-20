@@ -53,5 +53,26 @@ namespace WebAPI.Hubs
             var commentJSON = JsonConvert.SerializeObject(comment);
             await Clients.All.SendAsync("ReceiveEdit", commentJSON);
         }
+
+        static List<Car> arrUser = new List<Car>();
+
+        public async Task RegisterGame([FromForm]Car car)
+        {
+            //Todoing fix error return response
+            bool checkExist = arrUser.Contains(car);
+            if (!checkExist)
+            {
+                arrUser.Add(car);
+            }
+
+            await Clients.All.SendAsync("OnlineUser", arrUser.Distinct());
+        }
+
+        public async Task RejectUserGame([FromForm]Car car)
+        {
+            arrUser.Remove(car);
+            await Clients.All.SendAsync("OfflineUser", arrUser);
+        }
+
     }
 }

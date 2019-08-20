@@ -59,6 +59,15 @@
           "lib/netcoreapp2.1/LazZiya.ImageResize.dll": {}
         }
       },
+      "Microsoft.AspNet.Cors/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/System.Web.Cors.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Cors.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -2756,6 +2765,32 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Microsoft.Owin/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Owin": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/Microsoft.Owin.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.dll": {}
+        }
+      },
+      "Microsoft.Owin.Cors/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Cors": "5.0.0",
+          "Microsoft.Owin": "4.0.1",
+          "Owin": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/Microsoft.Owin.Cors.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.Cors.dll": {}
+        }
+      },
       "Microsoft.Win32.Registry/4.5.0": {
         "type": "package",
         "dependencies": {
@@ -2832,6 +2867,15 @@
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
+        }
+      },
+      "Owin/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Owin.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Owin.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -4702,6 +4746,17 @@
         "lazziya.imageresize.nuspec",
         "lib/netcoreapp2.1/LazZiya.ImageResize.dll",
         "license.txt"
+      ]
+    },
+    "Microsoft.AspNet.Cors/5.0.0": {
+      "sha512": "3mQVt5ZkHVs0mO2pAeNZHPoWb0DmxDMyS7YkU9usvvdc7C1gLHBuvbICZWtcnpiH+Im7SxAd7lSxL56Bqxos7A==",
+      "type": "package",
+      "path": "microsoft.aspnet.cors/5.0.0",
+      "files": [
+        ".signature.p7s",
+        "lib/net45/System.Web.Cors.dll",
+        "microsoft.aspnet.cors.5.0.0.nupkg.sha512",
+        "microsoft.aspnet.cors.nuspec"
       ]
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -7424,6 +7479,30 @@
         "version.txt"
       ]
     },
+    "Microsoft.Owin/4.0.1": {
+      "sha512": "WU9ljhr6WBtc7bxLC+U/PhEnZ0EMe3ZPU75uTlJlXzpdLH/CDlA8aQo3GP5lPsBFeyWw+IwoLKbua5ouNfqfTg==",
+      "type": "package",
+      "path": "microsoft.owin/4.0.1",
+      "files": [
+        ".signature.p7s",
+        "lib/net45/Microsoft.Owin.XML",
+        "lib/net45/Microsoft.Owin.dll",
+        "microsoft.owin.4.0.1.nupkg.sha512",
+        "microsoft.owin.nuspec"
+      ]
+    },
+    "Microsoft.Owin.Cors/4.0.1": {
+      "sha512": "Djw50dvPcgFzj5qsa6xgvoQOF9zfxErW7UB3gN5nEKjRREGH74MMUw/fPGU4dGkBTV8aRfAYCcB1VJu2WD5omA==",
+      "type": "package",
+      "path": "microsoft.owin.cors/4.0.1",
+      "files": [
+        ".signature.p7s",
+        "lib/net45/Microsoft.Owin.Cors.XML",
+        "lib/net45/Microsoft.Owin.Cors.dll",
+        "microsoft.owin.cors.4.0.1.nupkg.sha512",
+        "microsoft.owin.cors.nuspec"
+      ]
+    },
     "Microsoft.Win32.Registry/4.5.0": {
       "sha512": "LKmf0FiggwZBhNoz0S9ypcQ0EhUdQmwwniKEpd9LcisvJtxyYWq2RSok7YFpODm3VoYdR+6ifWDX23/2dJq2ZA==",
       "type": "package",
@@ -7653,6 +7732,17 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "Owin/1.0.0": {
+      "sha512": "S87+AKxSxfhXRzIQfm6WBxfGbnzECLG8bmVp3lRiwjeYG9YBJ0AXd+2Xn7I7aqwwj0j4erSpX6H9OhXy+qQ7tw==",
+      "type": "package",
+      "path": "owin/1.0.0",
+      "files": [
+        ".signature.p7s",
+        "lib/net40/Owin.dll",
+        "owin.1.0.0.nupkg.sha512",
+        "owin.nuspec"
       ]
     },
     "Remotion.Linq/2.2.0": {
@@ -12585,6 +12675,7 @@
       "Microsoft.AspNetCore.SignalR >= 1.1.0",
       "Microsoft.EntityFrameworkCore.Proxies >= 2.2.6",
       "Microsoft.NETCore.App >= 2.2.0",
+      "Microsoft.Owin.Cors >= 4.0.1",
       "Newtonsoft.Json >= 12.0.2"
     ]
   },
@@ -12636,6 +12727,10 @@
             "target": "Package",
             "version": "1.6.0"
           },
+          "Microsoft.Owin.Cors": {
+            "target": "Package",
+            "version": "4.0.1"
+          },
           "Microsoft.AspNetCore.Razor.Design": {
             "suppressParent": "All",
             "target": "Package",
@@ -12684,10 +12779,44 @@
   },
   "logs": [
     {
-      "code": "Undefined",
+      "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Project\\WebAPI\\WebAPI\\obj\\WebAPI.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Package 'Microsoft.AspNet.Cors 5.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Cors",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Owin 4.0.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Owin",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Owin.Cors 4.0.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Owin.Cors",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Owin 1.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Owin",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
     }
   ]
 }

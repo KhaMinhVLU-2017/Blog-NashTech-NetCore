@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "8e5c45f3b2c4d050d97a03177f69f20376ceaf00"
+    "signature": "946bb13528dfedb43f4f19cb3d053a99c2b4f6b0"
   },
   "compilationOptions": {
     "defines": [
@@ -32,6 +32,7 @@
           "Microsoft.AspNetCore.SignalR": "1.1.0",
           "Microsoft.EntityFrameworkCore.Proxies": "2.2.6",
           "Microsoft.NETCore.App": "2.2.0",
+          "Microsoft.Owin.Cors": "4.0.1",
           "Newtonsoft.Json": "12.0.2"
         },
         "runtime": {
@@ -106,6 +107,17 @@
           "lib/netcoreapp2.1/LazZiya.ImageResize.dll": {}
         }
       },
+      "Microsoft.AspNet.Cors/5.0.0": {
+        "runtime": {
+          "lib/net45/System.Web.Cors.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.11001.0"
+          }
+        },
+        "compile": {
+          "lib/net45/System.Web.Cors.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore/2.2.6": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "2.2.6",
@@ -156,6 +168,36 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Proxies.dll": {}
         }
       },
+      "Microsoft.Owin/4.0.1": {
+        "dependencies": {
+          "Owin": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.14582.116"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.Owin.dll": {}
+        }
+      },
+      "Microsoft.Owin.Cors/4.0.1": {
+        "dependencies": {
+          "Microsoft.AspNet.Cors": "5.0.0",
+          "Microsoft.Owin": "4.0.1",
+          "Owin": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.Cors.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.14582.116"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.Owin.Cors.dll": {}
+        }
+      },
       "Microsoft.Win32.SystemEvents/4.5.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.2.0"
@@ -184,6 +226,17 @@
         },
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Owin/1.0.0": {
+        "runtime": {
+          "lib/net40/Owin.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/net40/Owin.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -3467,6 +3520,13 @@
       "path": "lazziya.imageresize/2.0.0",
       "hashPath": "lazziya.imageresize.2.0.0.nupkg.sha512"
     },
+    "Microsoft.AspNet.Cors/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3mQVt5ZkHVs0mO2pAeNZHPoWb0DmxDMyS7YkU9usvvdc7C1gLHBuvbICZWtcnpiH+Im7SxAd7lSxL56Bqxos7A==",
+      "path": "microsoft.aspnet.cors/5.0.0",
+      "hashPath": "microsoft.aspnet.cors.5.0.0.nupkg.sha512"
+    },
     "Microsoft.EntityFrameworkCore/2.2.6": {
       "type": "package",
       "serviceable": true,
@@ -3495,6 +3555,20 @@
       "path": "microsoft.entityframeworkcore.proxies/2.2.6",
       "hashPath": "microsoft.entityframeworkcore.proxies.2.2.6.nupkg.sha512"
     },
+    "Microsoft.Owin/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WU9ljhr6WBtc7bxLC+U/PhEnZ0EMe3ZPU75uTlJlXzpdLH/CDlA8aQo3GP5lPsBFeyWw+IwoLKbua5ouNfqfTg==",
+      "path": "microsoft.owin/4.0.1",
+      "hashPath": "microsoft.owin.4.0.1.nupkg.sha512"
+    },
+    "Microsoft.Owin.Cors/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Djw50dvPcgFzj5qsa6xgvoQOF9zfxErW7UB3gN5nEKjRREGH74MMUw/fPGU4dGkBTV8aRfAYCcB1VJu2WD5omA==",
+      "path": "microsoft.owin.cors/4.0.1",
+      "hashPath": "microsoft.owin.cors.4.0.1.nupkg.sha512"
+    },
     "Microsoft.Win32.SystemEvents/4.5.0": {
       "type": "package",
       "serviceable": true,
@@ -3508,6 +3582,13 @@
       "sha512": "sha512-mtweBXPWhp1CMQATtBT7ZfMZrbZBTKfjGwz6Y75NwGjx/GztDaUnfw8GK9KZ2T4fDIqKJyDjc9Rxlw5+G2FcVA==",
       "path": "newtonsoft.json/12.0.2",
       "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
+    },
+    "Owin/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-S87+AKxSxfhXRzIQfm6WBxfGbnzECLG8bmVp3lRiwjeYG9YBJ0AXd+2Xn7I7aqwwj0j4erSpX6H9OhXy+qQ7tw==",
+      "path": "owin/1.0.0",
+      "hashPath": "owin.1.0.0.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",
