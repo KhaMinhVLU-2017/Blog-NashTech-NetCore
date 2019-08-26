@@ -379,6 +379,25 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult Search([FromForm]string key)
+        {
+            var listBlog = _db.Blog.Where(s => s.Title.Contains(key) || s.Content.Contains(key)).Select(s=> new {
+                s.BlogID,
+                s.Title,
+                s.Sapo,
+                s.Picture,
+                s.crDate,
+                AuthorName = s.Author.Fullname,
+                s.AuthorID
+            }).ToList().OrderByDescending(s => s.crDate);
+            if (listBlog!=null)
+            {
+                return Json(new { status = 200, listBlog, message = "Complete" });
+            }
+            return Json(new { status = 404, listBlog = "", message = "Complete" });
+        }
+
         public string DecodeToken(string Token, string KeySecret)
         {
             string token = Token;
