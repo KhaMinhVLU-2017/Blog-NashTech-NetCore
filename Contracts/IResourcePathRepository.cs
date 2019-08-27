@@ -5,7 +5,7 @@ using Entities.Models;
 
 namespace Contracts
 {
-    public interface IResourcePath : IRepositoryBase<ResourcePath>
+    public interface IResourcePathRepository : IRepositoryBase<ResourcePath>
     {
     }
 }

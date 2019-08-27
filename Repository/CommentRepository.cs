@@ -6,8 +6,8 @@ using Entities.Models;
 
 namespace Repository
 {
-    public class BlogRepository : RepositoryBase<Blog>, IBlogRepository
+    public class CommentRepository : RepositoryBase<Comment>, ICommentRepository
     {
-        public BlogRepository(AppMeoContext db ):base(db) { }
+        public CommentRepository(AppMeoContext db) : base(db)  {}
     }
 }
