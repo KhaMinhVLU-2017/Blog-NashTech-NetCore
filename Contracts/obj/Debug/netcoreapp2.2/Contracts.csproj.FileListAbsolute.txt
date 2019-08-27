@@ -1,0 +1,9 @@
+D:\Project\WebAPI\Contracts\bin\Debug\netcoreapp2.2\Contracts.deps.json
+D:\Project\WebAPI\Contracts\bin\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\WebAPI\Contracts\bin\Debug\netcoreapp2.2\Contracts.pdb
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.csprojResolveAssemblyReference.cache
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.csproj.CoreCompileInputs.cache
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.AssemblyInfoInputs.cache
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.AssemblyInfo.cs
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.pdb

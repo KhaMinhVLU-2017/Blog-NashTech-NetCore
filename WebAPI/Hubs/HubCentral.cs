@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using WebAPI.Models;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
