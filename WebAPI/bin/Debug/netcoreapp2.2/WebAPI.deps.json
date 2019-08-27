@@ -34,7 +34,8 @@
           "Microsoft.EntityFrameworkCore.Proxies": "2.2.6",
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.Owin.Cors": "4.0.1",
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "12.0.2",
+          "Repository": "1.0.0"
         },
         "runtime": {
           "WebAPI.dll": {}
@@ -486,6 +487,17 @@
           }
         }
       },
+      "Contracts/1.0.0": {
+        "dependencies": {
+          "Entities": "1.0.0"
+        },
+        "runtime": {
+          "Contracts.dll": {}
+        },
+        "compile": {
+          "Contracts.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.2.6",
@@ -497,6 +509,18 @@
         },
         "compile": {
           "Entities.dll": {}
+        }
+      },
+      "Repository/1.0.0": {
+        "dependencies": {
+          "Contracts": "1.0.0",
+          "Entities": "1.0.0"
+        },
+        "runtime": {
+          "Repository.dll": {}
+        },
+        "compile": {
+          "Repository.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3789,7 +3813,17 @@
       "path": "system.text.encoding.codepages/4.5.0",
       "hashPath": "system.text.encoding.codepages.4.5.0.nupkg.sha512"
     },
+    "Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Repository/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

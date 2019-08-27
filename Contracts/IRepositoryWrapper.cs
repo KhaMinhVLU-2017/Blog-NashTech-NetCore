@@ -11,6 +11,6 @@ namespace Contracts
         IResourcePathRepository ResourcePaths { get; }
         IRoleRepository Roles { get; }
         IUserRepository Users { get; }
-        void Save();
+        void Save();   
     }
 }

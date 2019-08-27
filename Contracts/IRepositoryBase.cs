@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -7,9 +9,12 @@ namespace Contracts
     public interface IRepositoryBase<T>
     {
         IQueryable<T> FindAll(Expression<Func<T, bool>> express);
+        T FindByID(int id);
         IQueryable<T> FindByContrain(Expression<Func<T, bool>> express);
+        IQueryable<TType> SelectCover<TType>(Expression<Func<T, TType>> express);
         void Insert(T entity);
         void Delete(T entity);
         void Edit(T entity);
+        void DeleteRange(IEnumerable<T> entity);
     }
 }

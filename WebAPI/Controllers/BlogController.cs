@@ -16,6 +16,8 @@ using WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using LazZiya.ImageResize;
+using Contracts;
+using System.Transactions;
 
 namespace WebAPI.Controllers
 {
@@ -23,10 +25,10 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BlogController : Controller
     {
-        private readonly AppMeoContext _db;
+        private readonly IRepositoryWrapper _db;
         private readonly AppSettings _Appsettings;
 
-        public BlogController(AppMeoContext db, IOptions<AppSettings> appMeo)
+        public BlogController(IRepositoryWrapper db, IOptions<AppSettings> appMeo)
         {
             _db = db;
             _Appsettings = appMeo.Value;
@@ -35,64 +37,59 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Create([FromForm]Blog blog, IFormFile file)
         {
-            using (var transaction = _db.Database.BeginTransaction())
+            try
             {
-                try
+                //string Token = Request.Headers["Authorization"];
+                //UserClient decodeUser = JsonConvert.DeserializeObject<UserClient>(DecodeToken(Token, _Appsettings.Secret));
+
+                UserClient decodeUser = new UserClient();
+
+                var UserID = HttpContext.Items["UserID"];
+                var RoleID = HttpContext.Items["RoleID"];
+                if (UserID == null)
                 {
-                    //string Token = Request.Headers["Authorization"];
-                    //UserClient decodeUser = JsonConvert.DeserializeObject<UserClient>(DecodeToken(Token, _Appsettings.Secret));
-
-                    UserClient decodeUser = new UserClient();
-
-                    var UserID = HttpContext.Items["UserID"];
-                    var RoleID = HttpContext.Items["RoleID"];
-                    if (UserID == null)
-                    {
-                        return Json(new { status = 500, message = "Server Interval" });
-                    }
-
-                    decodeUser.UserID = int.Parse(UserID.ToString());
-                    decodeUser.RoleID = int.Parse(RoleID.ToString());
-
-                    // Create BLog
-                    Blog blogNew = new Blog
-                    {
-                        Content = blog.Content,
-                        Sapo = blog.Sapo,
-                        Title = blog.Title,
-                        crDate = DateTime.Now,
-                        AuthorID = decodeUser.UserID
-                    };
-                    
-                    if (file != null)
-                    {
-                        blogNew.Picture = file.FileName;
-                        var path = Path.Combine(
-                                          Directory.GetCurrentDirectory(), "Assert/Images",
-                                          file.FileName);
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            file.CopyTo(stream);
-                            stream.Close();
-                        }
-                    }
-                    _db.Blog.Add(blogNew);
-                    _db.SaveChanges();
-                    transaction.Commit();
-                    return Json(new { status = 200, message = "Create Complete" });
+                    return Json(new { status = 500, message = "Server Interval" });
                 }
-                catch (Exception e)
+
+                decodeUser.UserID = int.Parse(UserID.ToString());
+                decodeUser.RoleID = int.Parse(RoleID.ToString());
+
+                // Create BLog
+                Blog blogNew = new Blog
                 {
-                    transaction.Rollback();
-                    return Json(new { status = 500, message = "Server Interval" + e });
+                    Content = blog.Content,
+                    Sapo = blog.Sapo,
+                    Title = blog.Title,
+                    crDate = DateTime.Now,
+                    AuthorID = decodeUser.UserID
+                };
+
+                if (file != null)
+                {
+                    blogNew.Picture = file.FileName;
+                    var path = Path.Combine(
+                                      Directory.GetCurrentDirectory(), "Assert/Images",
+                                      file.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                        stream.Close();
+                    }
                 }
+                _db.Blogs.Insert(blogNew);
+                _db.Save();
+                return Json(new { status = 200, message = "Create Complete" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = 500, message = "Server Interval" + e });
             }
         }
 
         [HttpGet]
         public IActionResult List()
         {
-            var listBlog = _db.Blog.Select(s => new
+            var listBlog = _db.Blogs.SelectCover(s => new
             {
                 s.BlogID,
                 s.Title,
@@ -110,14 +107,14 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var blog = _db.Blog.Find(id);
-                var listComment = _db.Comment.Where(s => s.BlogID == id);
-                _db.Comment.RemoveRange(listComment);
-                _db.Blog.Remove(blog);
-                _db.SaveChanges();
-                return Json(new { status=200,message="Remove Complete"});
+                var blog = _db.Blogs.FindByID(id);
+                var listComment = _db.Comments.FindByContrain(s => s.BlogID == id);
+                _db.Comments.DeleteRange(listComment);
+                _db.Blogs.Delete(blog);
+                _db.Save();
+                return Json(new { status = 200, message = "Remove Complete" });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(new { status = 500, message = "Server interval" });
             }
@@ -126,11 +123,11 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Edit([FromForm]Blog BlogEdit, IFormFile file)
         {
-            using (var transaction = _db.Database.BeginTransaction())
+            using (var transaction = new TransactionScope())
             {
                 try
                 {
-                    Blog BlogMeo = _db.Blog.Find(BlogEdit.BlogID);
+                    Blog BlogMeo = _db.Blogs.FindByID(BlogEdit.BlogID);
                     BlogMeo.Sapo = BlogEdit.Sapo;
                     BlogMeo.Title = BlogEdit.Title;
                     BlogMeo.Content = BlogEdit.Content;
@@ -152,16 +149,16 @@ namespace WebAPI.Controllers
                         {
                             BlogMeo.Picture = string.Empty;
                         }
-                    }                    
-                    _db.Entry(BlogMeo).State = EntityState.Modified;
-                    _db.SaveChanges();
-                    transaction.Commit();
-                    return Json(new { status=200,message="Update complete"});
+                    }
+                    _db.Blogs.Edit(BlogMeo);
+                    _db.Save();
+
+                    return Json(new { status = 200, message = "Update complete" });
+                    transaction.Complete();
                     //return Json(BlogMeo);
                 }
                 catch (Exception e)
                 {
-                    transaction.Rollback();
                     return Json(new { status = 500, message = "Update failed" });
                 }
             }
@@ -186,19 +183,18 @@ namespace WebAPI.Controllers
                     UserIDToken = int.Parse(UserID.ToString());
                 }
 
-                var blogDB = _db.Blog.Find(id);
+                var blogDB = _db.Blogs.FindByID(id);
                 if (blogDB == null)
                 {
-                    return Json(new { status = 404,blog=blogDB, message = "Blog empty" });
+                    return Json(new { status = 404, blog = blogDB, message = "Blog empty" });
                 }
-
                 //Compare blog
                 if (UserIDToken == blogDB.AuthorID)
                 {
                     Edit = true;
                 }
 
-                var blog = _db.Blog.Select(s => new
+                var blog = _db.Blogs.SelectCover(s => new
                 {
                     s.BlogID,
                     s.Title,
@@ -214,7 +210,7 @@ namespace WebAPI.Controllers
                         w.crDate,
                         w.UserID,
                         AuthorComment = w.User.Fullname
-                    }).OrderByDescending(q=>q.crDate).ToList(),
+                    }).OrderByDescending(q => q.crDate).ToList(),
                     AuthorName = s.Author.Fullname,
                     s.AuthorID
                 }).FirstOrDefault(s => s.BlogID == id);
@@ -252,7 +248,7 @@ namespace WebAPI.Controllers
                     UserIDToken = int.Parse(UserID.ToString());
                 }
 
-                var blogDB = _db.Blog.Find(id);
+                var blogDB = _db.Blogs.FindByID(id);
                 if (blogDB == null)
                 {
                     return Json(new { status = 404, blog = blogDB, message = "Blog empty" });
@@ -264,7 +260,7 @@ namespace WebAPI.Controllers
                     Edit = true;
                 }
 
-                var blog = _db.Blog.Select(s => new
+                var blog = _db.Blogs.SelectCover(s => new
                 {
                     s.BlogID,
                     s.Title,
@@ -287,7 +283,7 @@ namespace WebAPI.Controllers
 
                 if (blog.AuthorID != UserIDToken)
                 {
-                    return Json(new { status = 403, blog="", message = "Forbidden" });
+                    return Json(new { status = 403, blog = "", message = "Forbidden" });
                 }
 
                 if (blog == null)
@@ -323,7 +319,7 @@ namespace WebAPI.Controllers
                         int widthNew = 500;
 
                         //returns Image file
-                        var img = ImageResize.Scale(uploadedImage,widthNew, widthNew * ratiO);
+                        var img = ImageResize.Scale(uploadedImage, widthNew, widthNew * ratiO);
 
                         var path = Path.Combine(
                                           Directory.GetCurrentDirectory(), "Assert/ImagesBlog",
@@ -360,14 +356,15 @@ namespace WebAPI.Controllers
                     //    imageUrl = url
                     //});
                 }
-                return Json(new {
+                return Json(new
+                {
                     status = false,
                     originalName = "Error",
                     generatedName = "Error",
                     msg = "Image upload failed",
                 });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(new
                 {
@@ -382,7 +379,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Search([FromForm]string key)
         {
-            var listBlog = _db.Blog.Where(s => s.Title.Contains(key) || s.Content.Contains(key)).Select(s=> new {
+            var listBlog = _db.Blogs.FindByContrain(s => s.Title.Contains(key) || s.Content.Contains(key)).Select(s => new
+            {
                 s.BlogID,
                 s.Title,
                 s.Sapo,
@@ -391,7 +389,7 @@ namespace WebAPI.Controllers
                 AuthorName = s.Author.Fullname,
                 s.AuthorID
             }).ToList().OrderByDescending(s => s.crDate);
-            if (listBlog!=null)
+            if (listBlog != null)
             {
                 return Json(new { status = 200, listBlog, message = "Complete" });
             }

@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Http;
 using System.Text;
 using WebAPI.Hubs;
 using Entities.Models;
+using Contracts;
+using Repository;
 
 namespace WebAPI
 {
@@ -55,6 +57,8 @@ namespace WebAPI
             {
                 options.ForwardClientCertificate = false;
             });
+            // Service scope Repository Wrapper
+            services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();// Can need

@@ -14,3 +14,7 @@ D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Entities.pdb
 D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.RazorTargetAssemblyInfo.cache
 D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.dll
 D:\Project\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.pdb
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Repository.dll
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Repository.pdb
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Contracts.pdb

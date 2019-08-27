@@ -6,7 +6,7 @@ using Entities.Models;
 
 namespace Repository
 {
-    class ResourcePathRepository : RepositoryBase<ResourcePathRepository>, 
+    class ResourcePathRepository : RepositoryBase<ResourcePath>, IResourcePathRepository
     {
         public ResourcePathRepository(AppMeoContext option):base(option) { }
     }

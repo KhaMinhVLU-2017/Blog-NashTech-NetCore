@@ -4669,6 +4669,19 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contracts.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -4682,6 +4695,20 @@
         },
         "runtime": {
           "bin/placeholder/Entities.dll": {}
+        }
+      },
+      "Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "Contracts": "1.0.0",
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repository.dll": {}
         }
       }
     }
@@ -12676,10 +12703,20 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
+    "Contracts/1.0.0": {
+      "type": "project",
+      "path": "../Contracts/Contracts.csproj",
+      "msbuildProject": "../Contracts/Contracts.csproj"
+    },
     "Entities/1.0.0": {
       "type": "project",
       "path": "../Entities/Entities.csproj",
       "msbuildProject": "../Entities/Entities.csproj"
+    },
+    "Repository/1.0.0": {
+      "type": "project",
+      "path": "../Repository/Repository.csproj",
+      "msbuildProject": "../Repository/Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12694,7 +12731,8 @@
       "Microsoft.EntityFrameworkCore.Proxies >= 2.2.6",
       "Microsoft.NETCore.App >= 2.2.0",
       "Microsoft.Owin.Cors >= 4.0.1",
-      "Newtonsoft.Json >= 12.0.2"
+      "Newtonsoft.Json >= 12.0.2",
+      "Repository >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -12730,6 +12768,9 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
+            "D:\\Project\\WebAPI\\Repository\\Repository.csproj": {
+              "projectPath": "D:\\Project\\WebAPI\\Repository\\Repository.csproj"
+            },
             "D:\\Project\\WebAPI\\Entities\\Entities.csproj": {
               "projectPath": "D:\\Project\\WebAPI\\Entities\\Entities.csproj"
             }

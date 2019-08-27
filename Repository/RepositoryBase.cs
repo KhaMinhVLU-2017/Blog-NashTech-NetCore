@@ -3,6 +3,8 @@ using Contracts;
 using System.Linq;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace Repository
 {
@@ -17,6 +19,11 @@ namespace Repository
         public void Delete(T entity)
         {
             _db.Set<T>().Remove(entity);
+        }
+
+        public void DeleteRange(IEnumerable<T> ListEntity)
+        {
+            _db.Set<T>().RemoveRange(ListEntity);
         }
 
         public void Edit(T entity)
@@ -34,9 +41,19 @@ namespace Repository
             return _db.Set<T>().Where(express).AsNoTracking();
         }
 
+        public T FindByID(int id)
+        {
+           return _db.Set<T>().Find(id);
+        }
+
         public void Insert(T entity)
         {
             _db.Set<T>().Add(entity);
+        }
+
+        public IQueryable<TType> SelectCover<TType>(Expression<Func<T, TType>> express)
+        {
+            return _db.Set<T>().Select(express);
         }
     }
 }
