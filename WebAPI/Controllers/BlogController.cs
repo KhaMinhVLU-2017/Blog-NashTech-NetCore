@@ -26,12 +26,10 @@ namespace WebAPI.Controllers
     public class BlogController : Controller
     {
         private readonly IRepositoryWrapper _db;
-        private readonly AppSettings _Appsettings;
 
-        public BlogController(IRepositoryWrapper db, IOptions<AppSettings> appMeo)
+        public BlogController(IRepositoryWrapper db)
         {
             _db = db;
-            _Appsettings = appMeo.Value;
         }
 
         [HttpPost]
@@ -214,13 +212,12 @@ namespace WebAPI.Controllers
                     AuthorName = s.Author.Fullname,
                     s.AuthorID
                 }).FirstOrDefault(s => s.BlogID == id);
-
                 if (blog == null)
                 {
                     return Json(new { status = 404, blog, message = "Blog empty" });
                 }
 
-
+         
                 return Json(new { status = 200, blog, message = "Get Blog" });
             }
             catch (Exception e)

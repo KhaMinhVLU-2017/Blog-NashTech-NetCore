@@ -1,0 +1,14 @@
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\UnitTestWebAPI.deps.json
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\UnitTestWebAPI.runtimeconfig.json
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\UnitTestWebAPI.runtimeconfig.dev.json
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\UnitTestWebAPI.dll
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.1\UnitTestWebAPI.pdb
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.csprojResolveAssemblyReference.cache
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.csproj.CoreCompileInputs.cache
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.AssemblyInfoInputs.cache
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.AssemblyInfo.cs
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.dll
+D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.1\UnitTestWebAPI.pdb
