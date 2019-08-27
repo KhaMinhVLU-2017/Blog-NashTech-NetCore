@@ -23,6 +23,7 @@ using WebAPI.Hubs;
 using Entities.Models;
 using Contracts;
 using Repository;
+using Entities;
 
 namespace WebAPI
 {
@@ -59,7 +60,7 @@ namespace WebAPI
             });
             // Service scope Repository Wrapper
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
-
+            //services.AddAutoMapper<IRepositoryWrapper, RepositoryWrapper>();
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();// Can need
             services.AddScoped<IValidService, ValidService>();// Can need

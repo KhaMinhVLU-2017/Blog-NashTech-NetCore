@@ -31,9 +31,9 @@ namespace Repository
             _db.Set<T>().Update(entity);
         }
 
-        public IQueryable<T> FindAll(System.Linq.Expressions.Expression<Func<T, bool>> express)
+        public IEnumerable<T> FindAll()
         {
-            return _db.Set<T>().AsNoTracking();
+            return _db.Set<T>().ToList();
         }
 
         public IQueryable<T> FindByContrain(System.Linq.Expressions.Expression<Func<T, bool>> express)

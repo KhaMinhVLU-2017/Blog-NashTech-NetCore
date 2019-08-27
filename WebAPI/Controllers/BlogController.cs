@@ -18,6 +18,7 @@ using System.Drawing;
 using LazZiya.ImageResize;
 using Contracts;
 using System.Transactions;
+using Business;
 
 namespace WebAPI.Controllers
 {
@@ -391,6 +392,13 @@ namespace WebAPI.Controllers
                 return Json(new { status = 200, listBlog, message = "Complete" });
             }
             return Json(new { status = 404, listBlog = "", message = "Complete" });
+        }
+        
+        public IActionResult Test()
+        {
+            BlogLogic meo = new BlogLogic(_db);
+            meo.MapTest();
+            return Ok();
         }
 
         public string DecodeToken(string Token, string KeySecret)

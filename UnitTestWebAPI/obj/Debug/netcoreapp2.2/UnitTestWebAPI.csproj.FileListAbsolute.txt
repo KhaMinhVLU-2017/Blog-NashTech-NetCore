@@ -20,3 +20,5 @@ D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.Assembly
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.AssemblyInfo.cs
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.dll
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.pdb
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Business.dll
+D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Business.pdb

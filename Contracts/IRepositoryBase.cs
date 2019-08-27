@@ -8,7 +8,7 @@ namespace Contracts
 {
     public interface IRepositoryBase<T>
     {
-        IQueryable<T> FindAll(Expression<Func<T, bool>> express);
+        IEnumerable<T> FindAll();
         T FindByID(int id);
         IQueryable<T> FindByContrain(Expression<Func<T, bool>> express);
         IQueryable<TType> SelectCover<TType>(Expression<Func<T, TType>> express);

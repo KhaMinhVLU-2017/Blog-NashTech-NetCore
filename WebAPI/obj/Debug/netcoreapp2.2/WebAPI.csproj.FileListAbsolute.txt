@@ -18,3 +18,5 @@ D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Contracts.dll
 D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Repository.dll
 D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Repository.pdb
 D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Contracts.pdb
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Business.dll
+D:\Project\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\Business.pdb
