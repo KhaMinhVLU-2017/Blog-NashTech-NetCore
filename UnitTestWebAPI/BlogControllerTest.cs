@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using WebAPI.Controllers;
 using Contracts;
 using Moq;
-using WebAPI.Helpers;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 

@@ -21,9 +21,9 @@ namespace Entities.DTO
 
         public DateTime crDate { get; set; }
 
-        public virtual int AuthorID { get; set; }
+        public int AuthorID { get; set; }
 
-        public virtual List<CommentDTO> ListComment { get; set; }
+        public List<CommentDTO> ListComment { get; set; }
 
         public string AuthorName { get; set; }
     }

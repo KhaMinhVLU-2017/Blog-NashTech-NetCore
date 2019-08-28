@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Business
 {
-    public class BlogLogic
+    public class BlogLogic : IBlogLogicService
     {
         private IRepositoryWrapper _db;
 
@@ -71,7 +71,7 @@ namespace Business
                 int userIDINT = int.Parse(userID.ToString());
 
                 Blog blog = _db.Blogs.FindByID(blogID);
-      
+
                 if (userIDINT != blog.AuthorID)
                 {
                     return false;
@@ -93,11 +93,36 @@ namespace Business
         public bool BlogIsNull(int blogID)
         {
             var blog = _db.Blogs.FindByID(blogID);
-            if(blog==null)
+            if (blog == null)
             {
                 return true;
             }
             return false;
+        }
+
+        /**
+        * HTTP GET
+        * Action List
+        */
+
+        /// <summary>
+        ///  Get exist list blog from db
+        /// </summary>
+        /// <returns>ListObject</returns>
+        public List<BlogDTO> GetBlogListDTO()
+        {
+            var listBlog = _db.Blogs.SelectCover(s => new BlogDTO
+            {
+                BlogID = s.BlogID,
+                Title = s.Title,
+                Sapo = s.Sapo,
+                Picture = s.Picture,
+                crDate = s.crDate,
+                AuthorName = s.Author.Fullname,
+                AuthorID = s.AuthorID
+            }).OrderByDescending(s => s.crDate).ToList();
+
+            return listBlog;
         }
     }
 }

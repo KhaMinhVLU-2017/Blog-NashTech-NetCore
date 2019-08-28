@@ -20,7 +20,6 @@ using Contracts;
 using System.Transactions;
 using Business;
 using Entities.DTO;
-using Business;
 
 namespace WebAPI.Controllers
 {
@@ -30,12 +29,12 @@ namespace WebAPI.Controllers
     {
         private readonly IRepositoryWrapper _db;
 
-        private BlogLogic blogLogic;
+        private IBlogLogicService _blogService;
 
-        public BlogController(IRepositoryWrapper db)
+        public BlogController(IRepositoryWrapper db, IBlogLogicService blog)
         {
+            _blogService = blog;
             _db = db;
-            blogLogic = new BlogLogic(db);
         }
 
         [HttpPost]
@@ -93,16 +92,8 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            var listBlog = _db.Blogs.SelectCover(s => new
-            {
-                s.BlogID,
-                s.Title,
-                s.Sapo,
-                s.Picture,
-                s.crDate,
-                AuthorName = s.Author.Fullname,
-                s.AuthorID
-            }).ToList().OrderByDescending(s => s.crDate);
+            var listBlog = _blogService.GetBlogListDTO();
+
             return Json(new { status = 200, listBlog, message = "Complete" });
         }
 
@@ -156,9 +147,9 @@ namespace WebAPI.Controllers
                     }
                     _db.Blogs.Edit(BlogMeo);
                     _db.Save();
-
-                    return Json(new { status = 200, message = "Update complete" });
                     transaction.Complete();
+                    return Json(new { status = 200, message = "Update complete" });
+                 
                     //return Json(BlogMeo);
                 }
                 catch (Exception e)
@@ -177,16 +168,16 @@ namespace WebAPI.Controllers
 
                 var UserID = HttpContext.Items["UserID"];
 
-                bool blogIsNull = blogLogic.BlogIsNull(id);
+                bool blogIsNull = _blogService.BlogIsNull(id);
 
                 if (blogIsNull)
                 {
                     return Json(new { status = 404, blog = "", message = "Blog empty" });
                 }
 
-                IsEdit = blogLogic.IsEditBlogWithUserIDBlogID(UserID, id);
+                IsEdit = _blogService.IsEditBlogWithUserIDBlogID(UserID, id);
 
-                var blog = blogLogic.GetDetailBlogWithID(id,IsEdit);
+                var blog = _blogService.GetDetailBlogWithID(id,IsEdit);
 
                 return Json(new { status = 200, blog, message = "Get Blog" });
             }
@@ -201,63 +192,20 @@ namespace WebAPI.Controllers
         {
             try
             {
-                bool Edit = false;
+                bool IsEdit = false;
+
                 var UserID = HttpContext.Items["UserID"];
-                //Parse ID
-                int UserIDToken;
-                if (UserID == null)
+
+                bool blogIsNull = _blogService.BlogIsNull(id);
+
+                if (blogIsNull)
                 {
-                    Edit = false;
-                    UserIDToken = -1;
-                }
-                else
-                {
-                    UserIDToken = int.Parse(UserID.ToString());
+                    return Json(new { status = 404, blog = "", message = "Blog empty" });
                 }
 
-                var blogDB = _db.Blogs.FindByID(id);
-                if (blogDB == null)
-                {
-                    return Json(new { status = 404, blog = blogDB, message = "Blog empty" });
-                }
+                IsEdit = _blogService.IsEditBlogWithUserIDBlogID(UserID, id);
 
-                //Compare blog
-                if (UserIDToken == blogDB.AuthorID)
-                {
-                    Edit = true;
-                }
-
-                var blog = _db.Blogs.SelectCover(s => new
-                {
-                    s.BlogID,
-                    s.Title,
-                    s.Sapo,
-                    s.Content,
-                    s.Picture,
-                    s.crDate,
-                    edit = Edit,
-                    listComment = s.Comment.Select(w => new
-                    {
-                        w.CommentID,
-                        w.Content,
-                        w.crDate,
-                        w.UserID,
-                        AuthorComment = w.User.Fullname
-                    }).OrderByDescending(q => q.crDate).ToList(),
-                    AuthorName = s.Author.Fullname,
-                    s.AuthorID
-                }).FirstOrDefault(s => s.BlogID == id);
-
-                if (blog.AuthorID != UserIDToken)
-                {
-                    return Json(new { status = 403, blog = "", message = "Forbidden" });
-                }
-
-                if (blog == null)
-                {
-                    return Json(new { status = 404, blog, message = "Blog empty" });
-                }
-
+                var blog = _blogService.GetDetailBlogWithID(id, IsEdit);
 
                 return Json(new { status = 200, blog, message = "Get Blog" });
             }

@@ -23,7 +23,7 @@ using WebAPI.Hubs;
 using Entities.Models;
 using Contracts;
 using Repository;
-using Entities;
+using Business;
 
 namespace WebAPI
 {
@@ -58,6 +58,8 @@ namespace WebAPI
             {
                 options.ForwardClientCertificate = false;
             });
+            // Register Business Layer
+            services.AddScoped<IBlogLogicService,BlogLogic>();
             // Service scope Repository Wrapper
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
             //services.AddAutoMapper<IRepositoryWrapper, RepositoryWrapper>();

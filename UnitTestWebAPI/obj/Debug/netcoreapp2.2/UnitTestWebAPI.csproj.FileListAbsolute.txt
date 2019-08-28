@@ -8,12 +8,8 @@ D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\UnitTestWebAPI.dll
 D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\UnitTestWebAPI.pdb
 D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Contracts.dll
 D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Entities.dll
-D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Repository.dll
-D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\WebAPI.dll
-D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\WebAPI.pdb
 D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Contracts.pdb
 D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Entities.pdb
-D:\Project\WebAPI\UnitTestWebAPI\bin\Debug\netcoreapp2.2\Repository.pdb
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.csprojResolveAssemblyReference.cache
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.csproj.CoreCompileInputs.cache
 D:\Project\WebAPI\UnitTestWebAPI\obj\Debug\netcoreapp2.2\UnitTestWebAPI.AssemblyInfoInputs.cache
