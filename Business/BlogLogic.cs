@@ -11,14 +11,24 @@ namespace Business
     {
         private IRepositoryWrapper _db;
 
+        /// <summary>
+        /// Logic of BlogController
+        /// </summary>
+        /// <param name="db">Service DB</param>
         public BlogLogic(IRepositoryWrapper db)
         {
             _db = db;
         }
 
-        public BlogDTO GetDetailBlogWithID(int id)
+        /// <summary>
+        /// Get infor blog with check role was allow edit or nope
+        /// </summary>
+        /// <param name="blogID">BlogID</param>
+        /// <param name="edit">Boolean Edit</param>
+        /// <returns>Object</returns>
+        public BlogDTO GetDetailBlogWithID(int blogID, bool edit)
         {
-            Blog BlogMain = _db.Blogs.FindByID(id);
+            Blog BlogMain = _db.Blogs.FindByID(blogID);
             var blog = new BlogDTO
             {
                 BlogID = BlogMain.BlogID,
@@ -27,7 +37,7 @@ namespace Business
                 Content = BlogMain.Content,
                 Picture = BlogMain.Picture,
                 crDate = BlogMain.crDate,
-                Edit = true,
+                Edit = edit,
                 ListComment = BlogMain.Comment.Select(s => new CommentDTO
                 {
                     CommentID = s.CommentID,
@@ -43,6 +53,12 @@ namespace Business
             return blog;
         }
 
+        /// <summary>
+        /// Check user have role edit blog
+        /// </summary>
+        /// <param name="userID">UserID</param>
+        /// <param name="blogID">BlogID</param>
+        /// <returns>Boolean</returns>
         public bool IsEditBlogWithUserIDBlogID(object userID, int blogID)
         {
             try
@@ -69,6 +85,11 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Check Blog null or data
+        /// </summary>
+        /// <param name="blogID">BlogID</param>
+        /// <returns>Boolean</returns>
         public bool BlogIsNull(int blogID)
         {
             var blog = _db.Blogs.FindByID(blogID);

@@ -20,6 +20,7 @@ using Contracts;
 using System.Transactions;
 using Business;
 using Entities.DTO;
+using Business;
 
 namespace WebAPI.Controllers
 {
@@ -29,9 +30,12 @@ namespace WebAPI.Controllers
     {
         private readonly IRepositoryWrapper _db;
 
+        private BlogLogic blogLogic;
+
         public BlogController(IRepositoryWrapper db)
         {
             _db = db;
+            blogLogic = new BlogLogic(db);
         }
 
         [HttpPost]
@@ -169,80 +173,20 @@ namespace WebAPI.Controllers
         {
             try
             {
-                bool Edit = false;
+                bool IsEdit = false;
+
                 var UserID = HttpContext.Items["UserID"];
-                //Parse ID
-                int UserIDToken;
-                if (UserID == null)
+
+                bool blogIsNull = blogLogic.BlogIsNull(id);
+
+                if (blogIsNull)
                 {
-                    Edit = false;
-                    UserIDToken = -1;
-                }
-                else
-                {
-                    UserIDToken = int.Parse(UserID.ToString());
+                    return Json(new { status = 404, blog = "", message = "Blog empty" });
                 }
 
-                var blogDB = _db.Blogs.FindByID(id);
-                if (blogDB == null)
-                {
-                    return Json(new { status = 404, blog = blogDB, message = "Blog empty" });
-                }
-                //Compare blog
-                if (UserIDToken == blogDB.AuthorID)
-                {
-                    Edit = true;
-                }
+                IsEdit = blogLogic.IsEditBlogWithUserIDBlogID(UserID, id);
 
-                //var blog = _db.Blogs.SelectCover(s => new
-                //{
-                //    s.BlogID,
-                //    s.Title,
-                //    s.Sapo,
-                //    s.Content,
-                //    s.Picture,
-                //    s.crDate,
-                //    edit = Edit,
-                //    listComment = s.Comment.Select(w => new
-                //    {
-                //        w.CommentID,
-                //        w.Content,
-                //        w.crDate,
-                //        w.UserID,
-                //        AuthorComment = w.User.Fullname
-                //    }).OrderByDescending(q => q.crDate).ToList(),
-                //    AuthorName = s.Author.Fullname,
-                //    s.AuthorID
-                //}).FirstOrDefault(s => s.BlogID == id);
-
-                Blog BlogMain = _db.Blogs.FindByID(id);
-                var blog = new BlogDTO
-                {
-                    BlogID = BlogMain.BlogID,
-                    Title = BlogMain.Title,
-                    Sapo = BlogMain.Sapo,
-                    Content = BlogMain.Content,
-                    Picture = BlogMain.Picture,
-                    crDate = BlogMain.crDate,
-                    Edit = Edit,
-                    ListComment = BlogMain.Comment.Select(s => new CommentDTO
-                    {
-                        CommentID = s.CommentID,
-                        Content = s.Content,
-                        crDate = s.crDate,
-                        UserID = s.UserID,
-                        AuthorComment = s.User.Fullname
-                    }).OrderByDescending(q => q.crDate).ToList(),
-                    AuthorName = BlogMain.Author.Fullname,
-                    AuthorID  = BlogMain.AuthorID
-
-                };
-
-                if (blog == null)
-                {
-                    return Json(new { status = 404, blog, message = "Blog empty" });
-                }
-
+                var blog = blogLogic.GetDetailBlogWithID(id,IsEdit);
 
                 return Json(new { status = 200, blog, message = "Get Blog" });
             }
