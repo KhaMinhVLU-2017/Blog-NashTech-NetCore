@@ -2,32 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.2": {
-      "AutoMapper/9.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
-          "System.Reflection.Emit": "4.3.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/AutoMapper.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.dll": {}
-        }
-      },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-        "type": "package",
-        "dependencies": {
-          "AutoMapper": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        }
-      },
       "BCrypt.Net-Core/1.6.0": {
         "type": "package",
         "compile": {
@@ -4726,7 +4700,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.EntityFrameworkCore": "2.2.6",
           "Microsoft.EntityFrameworkCore.Proxies": "2.2.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6"
@@ -4755,34 +4728,6 @@
     }
   },
   "libraries": {
-    "AutoMapper/9.0.0": {
-      "sha512": "xT8V1cEHum51ZKXWeSlS2rT8fCHmLWpBPC+ZTJjQ9CO9j1pB7ZUz+MjNx9PIPQwXLFrkANXvWyg2eKR3x8qvSg==",
-      "type": "package",
-      "path": "automapper/9.0.0",
-      "files": [
-        ".signature.p7s",
-        "automapper.9.0.0.nupkg.sha512",
-        "automapper.nuspec",
-        "lib/net461/AutoMapper.dll",
-        "lib/net461/AutoMapper.pdb",
-        "lib/net461/AutoMapper.xml",
-        "lib/netstandard2.0/AutoMapper.dll",
-        "lib/netstandard2.0/AutoMapper.pdb",
-        "lib/netstandard2.0/AutoMapper.xml"
-      ]
-    },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-      "sha512": "prXKbljp+ubYf3jAcgHJytxlZUPsj/kjTyXSTaS/9U/coUzLIun8N+UpHFrY3g2d7pp0PzIlWY60m+zRq1vrZQ==",
-      "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
-      "files": [
-        ".signature.p7s",
-        "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
-        "automapper.extensions.microsoft.dependencyinjection.nuspec",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
-      ]
-    },
     "BCrypt.Net-Core/1.6.0": {
       "sha512": "FSHnTNSQNIQvgTEX1bxLW2F2pFZXPq4aCMWeBJtPdjKSsC/zL+IpNycdBMNt+fvLBH9UVCbfxp0fufQxHs+jgg==",
       "type": "package",

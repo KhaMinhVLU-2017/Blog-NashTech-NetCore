@@ -19,6 +19,7 @@ using LazZiya.ImageResize;
 using Contracts;
 using System.Transactions;
 using Business;
+using Entities.DTO;
 
 namespace WebAPI.Controllers
 {
@@ -193,32 +194,56 @@ namespace WebAPI.Controllers
                     Edit = true;
                 }
 
-                var blog = _db.Blogs.SelectCover(s => new
+                //var blog = _db.Blogs.SelectCover(s => new
+                //{
+                //    s.BlogID,
+                //    s.Title,
+                //    s.Sapo,
+                //    s.Content,
+                //    s.Picture,
+                //    s.crDate,
+                //    edit = Edit,
+                //    listComment = s.Comment.Select(w => new
+                //    {
+                //        w.CommentID,
+                //        w.Content,
+                //        w.crDate,
+                //        w.UserID,
+                //        AuthorComment = w.User.Fullname
+                //    }).OrderByDescending(q => q.crDate).ToList(),
+                //    AuthorName = s.Author.Fullname,
+                //    s.AuthorID
+                //}).FirstOrDefault(s => s.BlogID == id);
+
+                Blog BlogMain = _db.Blogs.FindByID(id);
+                var blog = new BlogDTO
                 {
-                    s.BlogID,
-                    s.Title,
-                    s.Sapo,
-                    s.Content,
-                    s.Picture,
-                    s.crDate,
-                    edit = Edit,
-                    listComment = s.Comment.Select(w => new
+                    BlogID = BlogMain.BlogID,
+                    Title = BlogMain.Title,
+                    Sapo = BlogMain.Sapo,
+                    Content = BlogMain.Content,
+                    Picture = BlogMain.Picture,
+                    crDate = BlogMain.crDate,
+                    Edit = Edit,
+                    ListComment = BlogMain.Comment.Select(s => new CommentDTO
                     {
-                        w.CommentID,
-                        w.Content,
-                        w.crDate,
-                        w.UserID,
-                        AuthorComment = w.User.Fullname
+                        CommentID = s.CommentID,
+                        Content = s.Content,
+                        crDate = s.crDate,
+                        UserID = s.UserID,
+                        AuthorComment = s.User.Fullname
                     }).OrderByDescending(q => q.crDate).ToList(),
-                    AuthorName = s.Author.Fullname,
-                    s.AuthorID
-                }).FirstOrDefault(s => s.BlogID == id);
+                    AuthorName = BlogMain.Author.Fullname,
+                    AuthorID  = BlogMain.AuthorID
+
+                };
+
                 if (blog == null)
                 {
                     return Json(new { status = 404, blog, message = "Blog empty" });
                 }
 
-         
+
                 return Json(new { status = 200, blog, message = "Get Blog" });
             }
             catch (Exception e)
@@ -392,13 +417,6 @@ namespace WebAPI.Controllers
                 return Json(new { status = 200, listBlog, message = "Complete" });
             }
             return Json(new { status = 404, listBlog = "", message = "Complete" });
-        }
-        
-        public IActionResult Test()
-        {
-            BlogLogic meo = new BlogLogic(_db);
-            meo.MapTest();
-            return Ok();
         }
 
         public string DecodeToken(string Token, string KeySecret)

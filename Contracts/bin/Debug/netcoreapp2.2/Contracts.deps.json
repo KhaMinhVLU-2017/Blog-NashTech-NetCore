@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "60bdb6e473717ebda47c3d4cd65f9e450556c611"
+    "signature": "476b552f3ac5b7ea8a3b148c16cf788912bd9a65"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,30 +12,6 @@
         },
         "runtime": {
           "Contracts.dll": {}
-        }
-      },
-      "AutoMapper/9.0.0": {
-        "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
-          "System.Reflection.Emit": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.0.0"
-          }
-        }
-      },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-        "dependencies": {
-          "AutoMapper": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "7.0.0.0"
-          }
         }
       },
       "Castle.Core/4.2.1": {
@@ -57,7 +33,6 @@
           }
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
       "Microsoft.EntityFrameworkCore/2.2.6": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "2.2.6",
@@ -749,7 +724,6 @@
       },
       "Entities/1.0.0": {
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.EntityFrameworkCore": "2.2.6",
           "Microsoft.EntityFrameworkCore.Proxies": "2.2.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6"
@@ -766,33 +740,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/9.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xT8V1cEHum51ZKXWeSlS2rT8fCHmLWpBPC+ZTJjQ9CO9j1pB7ZUz+MjNx9PIPQwXLFrkANXvWyg2eKR3x8qvSg==",
-      "path": "automapper/9.0.0",
-      "hashPath": "automapper.9.0.0.nupkg.sha512"
-    },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-prXKbljp+ubYf3jAcgHJytxlZUPsj/kjTyXSTaS/9U/coUzLIun8N+UpHFrY3g2d7pp0PzIlWY60m+zRq1vrZQ==",
-      "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
-      "hashPath": "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512"
-    },
     "Castle.Core/4.2.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-tLlM4XU+aj0n8TdkiHHmV/48GpTuFEPQimFjHTZGD9XTWRCSLQcnB6rOftqaUSCXeBSbmWWEGeLPTLG3siTrcw==",
       "path": "castle.core/4.2.1",
       "hashPath": "castle.core.4.2.1.nupkg.sha512"
-    },
-    "Microsoft.CSharp/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-EGoBmf3Na2ppbhPePDE9PlX81r1HuOZH5twBrq7couJZiPTjUnD3648balerQJO6EJ8Sj+43+XuRwQ7r+3tE3w==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore/2.2.6": {
       "type": "package",
