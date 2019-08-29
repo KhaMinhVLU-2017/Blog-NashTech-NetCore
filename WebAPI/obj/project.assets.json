@@ -4715,8 +4715,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
-          "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Contracts": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Repository.dll": {}
@@ -12742,7 +12741,6 @@
     ".NETCoreApp,Version=v2.2": [
       "BCrypt.Net-Core >= 1.6.0",
       "Business >= 1.0.0",
-      "Entities >= 1.0.0",
       "JWT >= 5.2.2",
       "LazZiya.ImageResize >= 2.0.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
@@ -12793,9 +12791,6 @@
             },
             "D:\\Project\\WebAPI\\Business\\Business.csproj": {
               "projectPath": "D:\\Project\\WebAPI\\Business\\Business.csproj"
-            },
-            "D:\\Project\\WebAPI\\Entities\\Entities.csproj": {
-              "projectPath": "D:\\Project\\WebAPI\\Entities\\Entities.csproj"
             }
           }
         }

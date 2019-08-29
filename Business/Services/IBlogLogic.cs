@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Business
 {
-    public interface IBlogLogicService
+    public interface IBlogLogic
     {
         BlogDTO GetDetailBlogWithID(int blogID, bool edit);
         bool IsEditBlogWithUserIDBlogID(object userID, int blogID);

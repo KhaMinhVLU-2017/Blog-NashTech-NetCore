@@ -4760,7 +4760,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "Contracts >= 1.0.0",
-      "Entities >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -4799,9 +4798,6 @@
           "projectReferences": {
             "D:\\Project\\WebAPI\\Contracts\\Contracts.csproj": {
               "projectPath": "D:\\Project\\WebAPI\\Contracts\\Contracts.csproj"
-            },
-            "D:\\Project\\WebAPI\\Entities\\Entities.csproj": {
-              "projectPath": "D:\\Project\\WebAPI\\Entities\\Entities.csproj"
             }
           }
         }

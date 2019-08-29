@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Business
 {
-    public class BlogLogic : IBlogLogicService
+    public class BlogLogic : IBlogLogic
     {
         private IRepositoryWrapper _db;
 

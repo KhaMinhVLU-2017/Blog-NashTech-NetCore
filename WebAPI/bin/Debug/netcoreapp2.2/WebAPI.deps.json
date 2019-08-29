@@ -26,7 +26,6 @@
         "dependencies": {
           "BCrypt.Net-Core": "1.6.0",
           "Business": "1.0.0",
-          "Entities": "1.0.0",
           "JWT": "5.2.2",
           "LazZiya.ImageResize": "2.0.0",
           "Microsoft.AspNetCore.App": "2.2.0",
@@ -526,8 +525,7 @@
       },
       "Repository/1.0.0": {
         "dependencies": {
-          "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Contracts": "1.0.0"
         },
         "runtime": {
           "Repository.dll": {}

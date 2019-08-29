@@ -8,8 +8,7 @@
     ".NETCoreApp,Version=v2.2": {
       "Repository/1.0.0": {
         "dependencies": {
-          "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Contracts": "1.0.0"
         },
         "runtime": {
           "Repository.dll": {}

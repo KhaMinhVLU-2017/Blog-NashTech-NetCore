@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Repository
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T: class
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T: class
     {
-        private AppMeoContext _db;
+        protected AppMeoContext _db { get; set; }
+
         public RepositoryBase(AppMeoContext db)
         {
             _db = db;

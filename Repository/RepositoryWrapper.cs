@@ -20,19 +20,19 @@ namespace Repository
             _db = db;
         }
 
-        public IBlogRepository Blogs => Blogs == null ? _blog = new BlogRepository(_db) : _blog;
+        public IBlogRepository Blogs => _blog == null ? _blog = new BlogRepository(_db) : _blog;
 
-        public ICommentRepository Comments => Comments == null ? _comment = new CommentRepository(_db) : _comment;
+        public ICommentRepository Comments => _comment == null ? _comment = new CommentRepository(_db) : _comment;
 
-        public IResourcePathRepository ResourcePaths => ResourcePaths == null ? _resource = new ResourcePathRepository(_db) : _resource;
+        public IResourcePathRepository ResourcePaths => _resource == null ? _resource = new ResourcePathRepository(_db) : _resource;
 
-        public IRoleRepository Roles => Roles == null ? _role = new RoleRepository(_db) : _role;
+        public IRoleRepository Roles => _role == null ? _role = new RoleRepository(_db) : _role;
 
         public IUserRepository Users
         {
             get
             {
-                if(Users==null)
+                if(_user == null)
                 {
                     _user = new UserRepository(_db);
                     return _user;

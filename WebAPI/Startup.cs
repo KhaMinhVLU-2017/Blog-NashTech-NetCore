@@ -59,7 +59,7 @@ namespace WebAPI
                 options.ForwardClientCertificate = false;
             });
             // Register Business Layer
-            services.AddScoped<IBlogLogicService,BlogLogic>();
+            services.AddScoped<IBlogLogic,BlogLogic>();
             // Service scope Repository Wrapper
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
             //services.AddAutoMapper<IRepositoryWrapper, RepositoryWrapper>();

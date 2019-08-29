@@ -27,14 +27,12 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BlogController : Controller
     {
-        private readonly IRepositoryWrapper _db;
+        public IRepositoryWrapper _db;
+        private readonly IBlogLogic _blogService;
 
-        private IBlogLogicService _blogService;
-
-        public BlogController(IRepositoryWrapper db, IBlogLogicService blog)
+        public BlogController(IBlogLogic blog)
         {
             _blogService = blog;
-            _db = db;
         }
 
         [HttpPost]
