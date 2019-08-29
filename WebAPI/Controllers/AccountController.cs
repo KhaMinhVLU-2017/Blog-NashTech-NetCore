@@ -65,6 +65,7 @@ namespace WebAPI.Controllers
                 IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
 
                 var token = encoder.Encode(payload, key);
+                var tokenModified = _userService.myEncodeToken(token);
 
                 return Json(new { status = 200, message = "Create User Complete", fullname = user.Fullname, token = token });
             }

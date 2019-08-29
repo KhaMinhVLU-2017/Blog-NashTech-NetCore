@@ -16,6 +16,8 @@ namespace WebAPI.Services
     public interface IUserService
     {
         UserClient Authenticate(string username, string password);
+
+        string myEncodeToken(string tokencurren);
     }
     public class UserService : IUserService
     {
@@ -64,13 +66,19 @@ namespace WebAPI.Services
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
             
             var token = encoder.Encode(payload, key);
-            string[] arrToken = token.Split('.');
-            var tokenModifed = string.Format("{0}.{1}{2}.{3}",arrToken[0], _appsettings.Salt, arrToken[1],arrToken[2]);
+
+            var tokenModifed = myEncodeToken(token);
 
             UserClient UserNew = new UserClient();
             UserNew.Fullname = checkUsername.Fullname;
             UserNew.Token = tokenModifed;
             return UserNew;
+        }
+
+        public string myEncodeToken (string token)
+        {
+            string[] arrToken = token.Split('.');
+            return string.Format("{0}.{1}{2}.{3}", arrToken[0], _appsettings.Salt, arrToken[1], arrToken[2]);
         }
     }
 }

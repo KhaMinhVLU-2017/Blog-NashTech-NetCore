@@ -4,6 +4,8 @@ using Contracts;
 using System.Collections.Generic;
 using Entities.DTO;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Business
 {
@@ -19,7 +21,7 @@ namespace Business
         {
             _db = db;
         }
-
+        #region Get info blog and Check allow Edit
         /// <summary>
         /// Get infor blog with check role was allow edit or nope
         /// </summary>
@@ -99,12 +101,7 @@ namespace Business
             }
             return false;
         }
-
-        /**
-        * HTTP GET
-        * Action List
-        */
-
+        
         /// <summary>
         ///  Get exist list blog from db
         /// </summary>
@@ -122,6 +119,90 @@ namespace Business
                 AuthorID = s.AuthorID
             }).OrderByDescending(s => s.crDate).ToList();
 
+            return listBlog;
+        }
+
+        #endregion
+
+
+        public string SaveImageToAssertAndReturnFileName(IFormFile file)
+        {
+            var pathWebAPI = Directory.CreateDirectory("../WebAPI").ToString();
+            var path = Path.Combine(pathWebAPI,"Assert/Images",
+                              file.FileName);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                file.CopyTo(stream);
+                stream.Close();
+            }
+            return file.FileName;
+        }
+
+        public bool CreateBlog(Blog blog,object UserID, object RoleID, string namePicture)
+        {
+            try
+            {
+                UserClient decodeUser = new UserClient();
+
+                decodeUser.UserID = int.Parse(UserID.ToString());
+                decodeUser.RoleID = int.Parse(RoleID.ToString());
+
+                // Create BLog
+                Blog blogNew = new Blog
+                {
+                    Content = blog.Content,
+                    Sapo = blog.Sapo,
+                    Title = blog.Title,
+                    crDate = DateTime.Now,
+                    AuthorID = decodeUser.UserID,
+                    Picture = namePicture
+                };
+
+                _db.Blogs.Insert(blogNew);
+                _db.Save();
+                return true;
+            }catch
+            {
+                return false;
+            }
+
+        }
+
+        public bool UpdateBlog(Blog blog, string fileName)
+        {
+            try
+            {
+                Blog BlogMeo = _db.Blogs.FindByID(blog.BlogID);
+                BlogMeo.Sapo = blog.Sapo;
+                BlogMeo.Title = blog.Title;
+                BlogMeo.Content = blog.Content;
+
+                if(blog.Picture == "KeepNew")
+                {
+                    BlogMeo.Picture = fileName;
+                }
+           
+                _db.Blogs.Edit(BlogMeo);
+                _db.Save();
+                return true;
+            }catch
+            {
+                return false;
+            }
+        }
+
+        public List<BlogDTO> SearchBlogWithKey(string key)
+        {
+            var listBlog = _db.Blogs.FindByContrain(s => s.Title.Contains(key) || s.Content.Contains(key)).Select(s => new BlogDTO
+            {
+                BlogID = s.BlogID,
+                Title = s.Title,
+                Sapo = s.Sapo,
+                Picture = s.Picture,
+                crDate = s.crDate,
+                AuthorName = s.Author.Fullname,
+                AuthorID = s.AuthorID
+            }).OrderByDescending(s => s.crDate).ToList();
             return listBlog;
         }
     }

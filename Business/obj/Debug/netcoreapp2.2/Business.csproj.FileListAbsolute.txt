@@ -11,3 +11,5 @@ D:\Project\WebAPI\Business\obj\Debug\netcoreapp2.2\Business.dll
 D:\Project\WebAPI\Business\obj\Debug\netcoreapp2.2\Business.pdb
 D:\Project\WebAPI\Business\bin\Debug\netcoreapp2.2\Contracts.dll
 D:\Project\WebAPI\Business\bin\Debug\netcoreapp2.2\Contracts.pdb
+D:\Project\WebAPI\Business\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.dll
+D:\Project\WebAPI\Business\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.xml
