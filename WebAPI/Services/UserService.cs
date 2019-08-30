@@ -10,6 +10,7 @@ using System.Text;
 using JWT.Algorithms;
 using JWT;
 using JWT.Serializers;
+using Business;
 
 namespace WebAPI.Services
 {
@@ -23,11 +24,13 @@ namespace WebAPI.Services
     {
         private readonly AppSettings _appsettings;
         private readonly AppMeoContext _db;
+        private IBlogLogic _blogservice;
 
-        public UserService(IOptions<AppSettings> appsettings, AppMeoContext db)
+        public UserService(IOptions<AppSettings> appsettings, AppMeoContext db, IBlogLogic blogservice)
         {
             _appsettings = appsettings.Value;
             _db = db;
+            _blogservice = blogservice;
         }
 
         public UserClient Authenticate(string username, string password)
@@ -48,24 +51,12 @@ namespace WebAPI.Services
             // authentication successful so generate jwt token
             var key = Encoding.ASCII.GetBytes(_appsettings.Secret);
 
-            IDateTimeProvider provider = new UtcDateTimeProvider();
-            var now = provider.GetNow();
+            var token = _blogservice.EndcodeTokenWithJWT(checkUsername,key);
 
-            var secondsSinceEpoch = UnixEpoch.GetSecondsSince(now.AddMinutes(30));
-
-            var payload = new Dictionary<string, object>
+            if (token == null)
             {
-                 { "UserID", checkUsername.UserID },
-                 { "RoleID", checkUsername.RoleID },
-                    { "exp", secondsSinceEpoch }
-            };
-
-            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();// SHA256 Algorithm
-            IJsonSerializer serializer = new JsonNetSerializer();// Convert JSON
-            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();// Endcode Base 64
-            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-            
-            var token = encoder.Encode(payload, key);
+                return null;
+            }
 
             var tokenModifed = myEncodeToken(token);
 

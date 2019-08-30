@@ -10,7 +10,8 @@ using JWT.Algorithms;
 using JWT;
 using WebAPI.Helpers;
 using Microsoft.Extensions.Options;
-using JWT.Serializers;
+using Business;
+
 
 namespace WebAPI.Controllers
 {
@@ -20,12 +21,15 @@ namespace WebAPI.Controllers
     {
         private readonly AppSettings _appsettings;
         private readonly AppMeoContext _db;
-        private IUserService _userService; 
-        public AccountController(IOptions<AppSettings> appMeo,AppMeoContext db, IUserService service)
+        private IUserService _userService;
+        private IBlogLogic _blogservice;
+
+        public AccountController(IOptions<AppSettings> appMeo,AppMeoContext db, IUserService service, IBlogLogic blogservice)
         {
             _db = db;
             _userService = service;
             _appsettings = appMeo.Value;
+            _blogservice = blogservice;
         }
 
         [HttpPost]
@@ -39,6 +43,7 @@ namespace WebAPI.Controllers
                     return Json(new { status = 404, message = "Username is exist" });
                 }
                 // hashpassword
+
                 string pwhash = BCrypt.Net.BCrypt.HashPassword(account.Password);
                 // new User
                 User user = new User();
@@ -53,18 +58,13 @@ namespace WebAPI.Controllers
                 // authentication successful so generate jwt token
                 var key = Encoding.ASCII.GetBytes(_appsettings.Secret);
 
-                var payload = new Dictionary<string, object>
-            {
-                 { "UserID", user.UserID },
-                 { "RoleID", user.RoleID }
-            };
+                var token = _blogservice.EndcodeTokenWithJWT(user,key);
 
-                IJwtAlgorithm algorithm = new HMACSHA256Algorithm();// SHA256 Algorithm
-                IJsonSerializer serializer = new JsonNetSerializer();// Convert JSON
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();// Endcode Base 64
-                IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-
-                var token = encoder.Encode(payload, key);
+                if(token == null)
+                {
+                    return Json(new { status = 500, message = "Server Interval" });
+                }
+   
                 var tokenModified = _userService.myEncodeToken(token);
 
                 return Json(new { status = 200, message = "Create User Complete", fullname = user.Fullname, token = token });

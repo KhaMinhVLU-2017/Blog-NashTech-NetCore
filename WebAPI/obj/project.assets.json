@@ -4674,7 +4674,8 @@
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Entities": "1.0.0",
+          "JWT": "5.2.2"
         },
         "compile": {
           "bin/placeholder/Business.dll": {}

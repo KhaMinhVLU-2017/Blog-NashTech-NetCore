@@ -52,5 +52,13 @@ namespace Business
         /// <param name="blogID">BlogID</param>
         /// <returns> Boolean for remove </returns>
         bool RemovePostFromID(int blogID);
+
+        /// <summary>
+        /// Token was encode
+        /// </summary>
+        /// <param name="User">Model User</param>
+        /// <param name="secretKey">Key Secret</param>
+        /// <returns>Return token was encoder</returns>
+        string EndcodeTokenWithJWT(User User, byte[] secretKey);
     }
 }

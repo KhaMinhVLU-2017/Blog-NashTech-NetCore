@@ -6,13 +6,16 @@ using Entities.DTO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using JWT.Algorithms;
+using JWT;
+using JWT.Serializers;
 
 namespace Business
 {
     public class BlogLogic : IBlogLogic
     {
         private IRepositoryWrapper _db;
-
+        //private IUserService _userService;
         /// <summary>
         /// Logic of BlogController
         /// </summary>
@@ -101,7 +104,7 @@ namespace Business
             }
             return false;
         }
-        
+
         /// <summary>
         ///  Get exist list blog from db
         /// </summary>
@@ -128,7 +131,7 @@ namespace Business
         public string SaveImageToAssertAndReturnFileName(IFormFile file)
         {
             var pathWebAPI = Directory.CreateDirectory("../WebAPI").ToString();
-            var path = Path.Combine(pathWebAPI,"Assert/Images",
+            var path = Path.Combine(pathWebAPI, "Assert/Images",
                               file.FileName);
             using (var stream = new FileStream(path, FileMode.Create))
             {
@@ -138,7 +141,7 @@ namespace Business
             return file.FileName;
         }
 
-        public bool CreateBlog(Blog blog,object UserID, object RoleID, string namePicture)
+        public bool CreateBlog(Blog blog, object UserID, object RoleID, string namePicture)
         {
             try
             {
@@ -161,7 +164,8 @@ namespace Business
                 _db.Blogs.Insert(blogNew);
                 _db.Save();
                 return true;
-            }catch
+            }
+            catch
             {
                 return false;
             }
@@ -177,15 +181,16 @@ namespace Business
                 BlogMeo.Title = blog.Title;
                 BlogMeo.Content = blog.Content;
 
-                if(blog.Picture == "KeepNew")
+                if (blog.Picture == "KeepNew")
                 {
                     BlogMeo.Picture = fileName;
                 }
-           
+
                 _db.Blogs.Edit(BlogMeo);
                 _db.Save();
                 return true;
-            }catch
+            }
+            catch
             {
                 return false;
             }
@@ -216,10 +221,42 @@ namespace Business
                 _db.Blogs.Delete(blog);
                 _db.Save();
                 return true;
-            }catch
+            }
+            catch
             {
                 return false;
             }
         }
+
+        public string EndcodeTokenWithJWT(User User, byte[] secretKey)
+        {
+            try
+            {
+                IDateTimeProvider provider = new UtcDateTimeProvider();
+                var now = provider.GetNow();
+
+                var secondsSinceEpoch = UnixEpoch.GetSecondsSince(now.AddMinutes(30));
+
+                var payload = new Dictionary<string, object>
+                {
+                 { "UserID", User.UserID },
+                 { "RoleID", User.RoleID },
+                  { "exp", secondsSinceEpoch }
+                };
+
+                IJwtAlgorithm algorithm = new HMACSHA256Algorithm();// SHA256 Algorithm
+                IJsonSerializer serializer = new JsonNetSerializer();// Convert JSON
+                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();// Endcode Base 64
+                IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+
+                var token = encoder.Encode(payload, secretKey);
+                return token;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

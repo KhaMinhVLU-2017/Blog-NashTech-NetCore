@@ -490,7 +490,8 @@
       "Business/1.0.0": {
         "dependencies": {
           "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Entities": "1.0.0",
+          "JWT": "5.2.2"
         },
         "runtime": {
           "Business.dll": {}
