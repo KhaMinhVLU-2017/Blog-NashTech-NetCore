@@ -12,6 +12,7 @@ using Entities.DTO;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace UnitTestWebAPI
 {
@@ -184,28 +185,27 @@ namespace UnitTestWebAPI
             // Arrange
             // mock inject
             var mockdependency = new Mock<IBlogLogic>();
-            //mockfile
             var mockFile = new Mock<IFormFile>();
             string namePicture = "glc.png";
-            var myPathIMG = Path.Combine(@"D:\Project\WebAPI\UnitTestWebAPI\Helper\glc.png");
-            var sourceIMG = File.OpenRead(myPathIMG);
-            var memoryStream = new MemoryStream();
-            var writer = new StreamWriter(memoryStream);
-            writer.Write(sourceIMG);
-            writer.Flush();
-            memoryStream.Position = 0;
+            IFormFile file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("dummy image")), 0, 0, "Data", namePicture);
 
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(file);
+            writer.Flush();
+            ms.Position = 0;
             mockFile.Setup(f => f.FileName).Returns(namePicture).Verifiable();
             mockFile.Setup(_ => _.CopyToAsync(It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-                .Returns((Stream stream, CancellationToken token) => memoryStream.CopyToAsync(stream))
+                .Returns((Stream stream, CancellationToken token) => ms.CopyToAsync(stream))
                 .Verifiable();
 
             // Actual
             var sut = new BlogControllerFake(mockdependency.Object);
-            var inputfile = mockFile.Object;
+            var imageNameReturn = sut.SaveImageToAssertAndReturnFileName(mockFile.Object);
 
             // Assert
-            mockFile.Verify();
+            Assert.Equal(namePicture, imageNameReturn);
+
         }
 
         #endregion
