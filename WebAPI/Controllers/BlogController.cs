@@ -35,34 +35,7 @@ namespace WebAPI.Controllers
             _blogService = blog;
         }
 
-        [HttpGet]
-        public IActionResult GetForEdit(int id)
-        {
-            try
-            {
-                bool IsEdit = false;
-
-                var UserID = HttpContext.Items["UserID"];
-
-                bool blogIsNull = _blogService.BlogIsNull(id);
-
-                if (blogIsNull)
-                {
-                    return Json(new { status = 404, blog = "", message = "Blog empty" });
-                }
-
-                IsEdit = _blogService.IsEditBlogWithUserIDBlogID(UserID, id);
-
-                var blog = _blogService.GetDetailBlogWithID(id, IsEdit);
-
-                return Json(new { status = 200, blog, message = "Get Blog" });
-            }
-            catch (Exception e)
-            {
-                return Json(new { status = 500, blog = "", message = "Server Interval " + e });
-            }
-        }
-
+    
         [HttpPost]
         public IActionResult SaveIMG(IFormFile file)
         {
@@ -101,23 +74,6 @@ namespace WebAPI.Controllers
                             imageUrl = url
                         });
                     }
-                    //var path = Path.Combine(
-                    //                  Directory.GetCurrentDirectory(), "Assert/ImagesBlog",
-                    //                  file.FileName);
-                    //using (var stream = new FileStream(path, FileMode.Create))
-                    //{
-                    //    file.CopyTo(stream);
-                    //    stream.Close();
-                    //}
-
-                    //string url = string.Format("http://{0}/assert/imagesblog/{1}", Request.Host.ToString(), file.FileName);
-                    //return Json(new {
-                    //    status =true,
-                    //    originalName = file.FileName,
-                    //    generatedName = file.FileName,
-                    //    msg = "Image upload successful",
-                    //    imageUrl = url
-                    //});
                 }
                 return Json(new
                 {
@@ -138,8 +94,7 @@ namespace WebAPI.Controllers
                 });
             }
         }
-
-    
+   
 
         #region Refactored Code
         [HttpGet]
@@ -264,6 +219,35 @@ namespace WebAPI.Controllers
             }
             return Json(new { status = 500, message = "Server interval" });
         }
+
+        [HttpGet]
+        public IActionResult GetForEdit(int id)
+        {
+            try
+            {
+                bool IsEdit = false;
+
+                var UserID = HttpContext.Items["UserID"];
+
+                bool blogIsNull = _blogService.BlogIsNull(id);
+
+                if (blogIsNull)
+                {
+                    return Json(new { status = 404, blog = "", message = "Blog empty" });
+                }
+
+                IsEdit = _blogService.IsEditBlogWithUserIDBlogID(UserID, id);
+
+                var blog = _blogService.GetDetailBlogWithID(id, IsEdit);
+
+                return Json(new { status = 200, blog, message = "Get Blog" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = 500, blog = "", message = "Server Interval " + e });
+            }
+        }
+
         #endregion
 
         public string DecodeToken(string Token, string KeySecret)
