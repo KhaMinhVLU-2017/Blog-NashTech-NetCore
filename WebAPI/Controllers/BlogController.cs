@@ -152,6 +152,12 @@ namespace WebAPI.Controllers
                 {
                     imageName = _blogService.SaveImageToAssertAndReturnFileName(file);
                 }
+
+                if(imageName==null)
+                {
+                    return Json(new { status = 500, message = "Can't Save BlogImage" });
+                }
+
                 bool isSaveBlog = _blogService.CreateBlog(blog, UserID, RoleID, imageName);
 
                 if (isSaveBlog)

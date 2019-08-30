@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "UnitTestWebAPI": {
+      "commandName": "Project"
+    }
+  }
+}

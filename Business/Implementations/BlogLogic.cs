@@ -130,15 +130,21 @@ namespace Business
 
         public string SaveImageToAssertAndReturnFileName(IFormFile file)
         {
-            var pathWebAPI = Directory.CreateDirectory("../WebAPI").ToString();
-            var path = Path.Combine(pathWebAPI, "Assert/Images",
-                              file.FileName);
-            using (var stream = new FileStream(path, FileMode.Create))
+            try
             {
-                file.CopyTo(stream);
-                stream.Close();
+                var pathWebAPI = Directory.CreateDirectory("../WebAPI").ToString();
+                var path = Path.Combine(pathWebAPI, "Assert/Images",
+                                  file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                    stream.Close();
+                }
+                return file.FileName;
+            }catch
+            {
+                return null;
             }
-            return file.FileName;
         }
 
         public bool CreateBlog(Blog blog, object UserID, object RoleID, string namePicture)

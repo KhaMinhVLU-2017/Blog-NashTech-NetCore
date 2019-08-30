@@ -6,4 +6,3 @@ D:\Project\WebAPI\Entities\obj\Debug\netcoreapp2.2\Entities.AssemblyInfoInputs.c
 D:\Project\WebAPI\Entities\obj\Debug\netcoreapp2.2\Entities.AssemblyInfo.cs
 D:\Project\WebAPI\Entities\obj\Debug\netcoreapp2.2\Entities.dll
 D:\Project\WebAPI\Entities\obj\Debug\netcoreapp2.2\Entities.pdb
-D:\Project\WebAPI\Entities\obj\Debug\netcoreapp2.2\Entities.csprojResolveAssemblyReference.cache
