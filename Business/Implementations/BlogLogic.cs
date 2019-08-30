@@ -205,5 +205,21 @@ namespace Business
             }).OrderByDescending(s => s.crDate).ToList();
             return listBlog;
         }
+
+        public bool RemovePostFromID(int blogID)
+        {
+            try
+            {
+                var blog = _db.Blogs.FindByID(blogID);
+                var listComment = _db.Comments.FindByContrain(s => s.BlogID == blogID);
+                _db.Comments.DeleteRange(listComment);
+                _db.Blogs.Delete(blog);
+                _db.Save();
+                return true;
+            }catch
+            {
+                return false;
+            }
+        }
     }
 }

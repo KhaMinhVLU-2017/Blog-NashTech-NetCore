@@ -35,25 +35,6 @@ namespace WebAPI.Controllers
             _blogService = blog;
         }
 
-        [HttpPost]
-        public IActionResult Remove([FromForm]int id)
-        {
-            try
-            {
-                var blog = _db.Blogs.FindByID(id);
-                var listComment = _db.Comments.FindByContrain(s => s.BlogID == id);
-                _db.Comments.DeleteRange(listComment);
-                _db.Blogs.Delete(blog);
-                _db.Save();
-                return Json(new { status = 200, message = "Remove Complete" });
-            }
-            catch (Exception e)
-            {
-                return Json(new { status = 500, message = "Server interval" });
-            }
-        }
-
-
         [HttpGet]
         public IActionResult GetForEdit(int id)
         {
@@ -273,6 +254,16 @@ namespace WebAPI.Controllers
             return Json(new { status = 404, listBlog = "", message = "Complete" });
         }
 
+        [HttpPost]
+        public IActionResult Remove([FromForm]int id)
+        {
+            bool isRemoveBlogTrue = _blogService.RemovePostFromID(id);
+            if (isRemoveBlogTrue)
+            {
+                return Json(new { status = 200, message = "Remove Complete" });
+            }
+            return Json(new { status = 500, message = "Server interval" });
+        }
         #endregion
 
         public string DecodeToken(string Token, string KeySecret)

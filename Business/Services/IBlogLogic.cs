@@ -45,5 +45,12 @@ namespace Business
         /// <param name="key">KeyWord</param>
         /// <returns>Return list post</returns>
         List<BlogDTO> SearchBlogWithKey(string key);
+
+        /// <summary>
+        /// Remove Post with ID
+        /// </summary>
+        /// <param name="blogID">BlogID</param>
+        /// <returns> Boolean for remove </returns>
+        bool RemovePostFromID(int blogID);
     }
 }
