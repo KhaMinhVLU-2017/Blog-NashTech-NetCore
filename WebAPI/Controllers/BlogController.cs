@@ -179,7 +179,9 @@ namespace WebAPI.Controllers
                 try
                 {
                     var namePicture = string.Empty;
-
+                    var UserID = int.Parse(HttpContext.Items["UserID"].ToString());
+                    var userIdBlog = BlogEdit.Author.UserID;
+                    if (UserID != userIdBlog) return Json(new { status = 403, message = "Forhibben" });
                     if (file != null)
                     {
                         namePicture = _blogService.SaveImageToAssertAndReturnFileName(file);

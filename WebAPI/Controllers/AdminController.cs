@@ -1,46 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Business;
+using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AdminController : Controller
     {
-        [Route("api/[controller]")]
+        private readonly IBlogLogic _blogService;
+        public AdminController(IBlogLogic blogService)
+        {
+            _blogService = blogService;
+        }
+
         #region Post
-        public IActionResult GetListPost()
+        [HttpPost("UpdatePost")]
+        public IActionResult EditPost([FromForm]Blog BlogEdit, IFormFile file)
         {
-            return null;
+            try
+            {
+                var namePicture = string.Empty;
+                var roleId = HttpContext.Items["RoleID"];
+                var roldIdInt = int.Parse(roleId.ToString());
+                if (roleId == null || roldIdInt != 1) return Json(new { status = 403, message = "Forbidden" });
+
+                if (file != null)
+                {
+                    namePicture = _blogService.SaveImageToAssertAndReturnFileName(file);
+                }
+                bool isUpdateComplete = _blogService.UpdateBlog(BlogEdit, namePicture);
+                if (isUpdateComplete)
+                {
+                    return Json(new { status = 200, message = "Update complete" });
+                }
+                return Json(new { status = 500, message = "Update failed" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = 500, message = "Update failed" + e });
+            }
         }
 
-        public IActionResult GetPost()
+        public IActionResult DeletePost([FromForm]int id)
         {
-            return null;
-        }
-        
-        public IActionResult EditListPost()
-        {
-            return null;
+            var roleId = HttpContext.Items["RoleID"];
+            var roldIdInt = int.Parse(roleId.ToString());
+            if (roleId == null || roldIdInt != 1) return Json(new { status = 403, message = "Forbidden" });
+            bool isRemoveBlogTrue = _blogService.RemovePostFromID(id);
+            if (isRemoveBlogTrue)
+            {
+                return Json(new { status = 200, message = "Remove Complete" });
+            }
+            return Json(new { status = 500, message = "Server interval" });
         }
 
-        public IActionResult DeletePost()
+        public IActionResult SearchBlog()
         {
             return null;
         }
         #endregion
 
         #region Comment
-        public IActionResult GetComment()
-        {
-            return null;
-        }
-
-        public IActionResult GetListComment()
-        {
-            return null;
-        }
 
         public IActionResult EditComment()
         {
@@ -48,6 +71,11 @@ namespace WebAPI.Controllers
         }
 
         public IActionResult DeleteComment()
+        {
+            return null;
+        }
+
+        public IActionResult SearchComment()
         {
             return null;
         }
