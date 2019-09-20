@@ -11,3 +11,17 @@ D:\Project\WebAPI\Repository\bin\Debug\netcoreapp2.2\Contracts.pdb
 D:\Project\WebAPI\Repository\bin\Debug\netcoreapp2.2\Entities.pdb
 D:\Project\WebAPI\Repository\obj\Debug\netcoreapp2.2\Repository.dll
 D:\Project\WebAPI\Repository\obj\Debug\netcoreapp2.2\Repository.pdb
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Repository.deps.json
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Repository.dll
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Repository.pdb
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Entities.dll
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Contracts.pdb
+D:\Project\blog-nashtech-backend\Repository\bin\Debug\netcoreapp2.2\Entities.pdb
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.csprojAssemblyReference.cache
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.csproj.CoreCompileInputs.cache
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfoInputs.cache
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfo.cs
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.csproj.CopyComplete
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.dll
+D:\Project\blog-nashtech-backend\Repository\obj\Debug\netcoreapp2.2\Repository.pdb

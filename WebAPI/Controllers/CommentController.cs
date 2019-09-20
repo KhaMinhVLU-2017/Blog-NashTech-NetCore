@@ -77,7 +77,7 @@ namespace WebAPI.Controllers {
             }
             catch(Exception e)
             {
-                return Json(new { status = 500, message = "Server Interval" });
+                return Json(new { status = 500, message = "Server Interval" + e});
             }
         }
 

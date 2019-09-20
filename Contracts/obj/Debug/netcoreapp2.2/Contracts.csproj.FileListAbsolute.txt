@@ -9,3 +9,15 @@ D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.dll
 D:\Project\WebAPI\Contracts\obj\Debug\netcoreapp2.2\Contracts.pdb
 D:\Project\WebAPI\Contracts\bin\Debug\netcoreapp2.2\Entities.dll
 D:\Project\WebAPI\Contracts\bin\Debug\netcoreapp2.2\Entities.pdb
+D:\Project\blog-nashtech-backend\Contracts\bin\Debug\netcoreapp2.2\Contracts.deps.json
+D:\Project\blog-nashtech-backend\Contracts\bin\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\blog-nashtech-backend\Contracts\bin\Debug\netcoreapp2.2\Contracts.pdb
+D:\Project\blog-nashtech-backend\Contracts\bin\Debug\netcoreapp2.2\Entities.dll
+D:\Project\blog-nashtech-backend\Contracts\bin\Debug\netcoreapp2.2\Entities.pdb
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.csprojAssemblyReference.cache
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.csproj.CoreCompileInputs.cache
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.AssemblyInfoInputs.cache
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.AssemblyInfo.cs
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.csproj.CopyComplete
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.dll
+D:\Project\blog-nashtech-backend\Contracts\obj\Debug\netcoreapp2.2\Contracts.pdb

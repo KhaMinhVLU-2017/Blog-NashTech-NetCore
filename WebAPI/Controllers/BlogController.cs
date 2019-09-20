@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
             _blogService = blog;
         }
 
-    
+
         [HttpPost]
         public IActionResult SaveIMG(IFormFile file)
         {
@@ -90,11 +90,11 @@ namespace WebAPI.Controllers
                     status = false,
                     originalName = "Error",
                     generatedName = "Error",
-                    msg = "Image upload failed",
+                    msg = "Image upload failed" + e,
                 });
             }
         }
-   
+
 
         #region Refactored Code
         [HttpGet]
@@ -103,9 +103,7 @@ namespace WebAPI.Controllers
             try
             {
                 bool IsEdit = false;
-
                 var UserID = HttpContext.Items["UserID"];
-
                 bool blogIsNull = _blogService.BlogIsNull(id);
 
                 if (blogIsNull)
@@ -153,7 +151,7 @@ namespace WebAPI.Controllers
                     imageName = _blogService.SaveImageToAssertAndReturnFileName(file);
                 }
 
-                if(imageName==null)
+                if (imageName == null)
                 {
                     return Json(new { status = 500, message = "Can't Save BlogImage" });
                 }
@@ -199,7 +197,7 @@ namespace WebAPI.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Json(new { status = 500, message = "Update failed" });
+                    return Json(new { status = 500, message = "Update failed" + e });
                 }
             }
         }

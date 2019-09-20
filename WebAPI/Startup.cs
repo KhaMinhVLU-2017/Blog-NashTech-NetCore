@@ -63,6 +63,7 @@ namespace WebAPI
             // Service scope Repository Wrapper
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
             //services.AddAutoMapper<IRepositoryWrapper, RepositoryWrapper>();
+            
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();// Can need
             services.AddScoped<IValidService, ValidService>();// Can need
@@ -164,7 +165,7 @@ namespace WebAPI
             });
 
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseMvc();
         }
