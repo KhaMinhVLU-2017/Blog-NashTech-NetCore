@@ -14,7 +14,9 @@ namespace Contracts
         IQueryable<TType> SelectCover<TType>(Expression<Func<T, TType>> express);
         void Insert(T entity);
         void Delete(T entity);
+        void DeleteById(int Id);
         void Edit(T entity);
         void DeleteRange(IEnumerable<T> entity);
+        void UpdateEntity(T entity);
     }
 }

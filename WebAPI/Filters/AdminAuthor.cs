@@ -20,8 +20,8 @@ namespace WebAPI.Filters
             {
                 string jsonString = JsonConvert.SerializeObject(new
                 {
-                    status = 403,
-                    message = "Token has expired"
+                    status = 401,
+                    message = "UnAuthorization"
                 });
                 context.Result = new JsonResult(jsonString);
             }
@@ -33,7 +33,7 @@ namespace WebAPI.Filters
                     string jsonString = JsonConvert.SerializeObject(new
                     {
                         status = 403,
-                        message = "Token has expired"
+                        message = "Forbidden"
                     });
                     context.Result = new JsonResult(jsonString);
                 }

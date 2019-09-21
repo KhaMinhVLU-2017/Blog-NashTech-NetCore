@@ -1,7 +1,9 @@
 ﻿using System;
 using Business;
+using Business.Services;
 using Contracts;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Filters;
@@ -10,15 +12,17 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AdminAuthor]
+    //[AdminAuthor]
     public class AdminController : Controller
     {
         private readonly IBlogLogic _blogService;
+        private readonly ICommentLogic _commentService;
         private readonly IRepositoryWrapper _repoWap;
-        public AdminController(IBlogLogic blogService, IRepositoryWrapper repoWap)
+        public AdminController(IBlogLogic blogService, IRepositoryWrapper repoWap, ICommentLogic commentService)
         {
             _blogService = blogService;
             _repoWap = repoWap;
+            _commentService = commentService;
         }
 
         #region Post
@@ -61,30 +65,35 @@ namespace WebAPI.Controllers
             }
             return Json(new { status = 500, message = "Server interval" });
         }
-        [HttpGet("GetLog")]
-        public IActionResult SearchBlog()
-        {
-            _repoWap.Roles.Insert(new Role{Name="SuperMan"});
-            _repoWap.Save();
-            return null;
-        }
+
         #endregion
 
         #region Comment
-
-        public IActionResult EditComment()
+        [HttpPost("UpdateComment")]
+        public IActionResult EditComment([FromForm]Comment comment)
         {
-            return null;
+            bool UpdateCommented = _commentService.UpdateComment(comment);
+            if (UpdateCommented)
+            {
+                return Json(new { status = 200, message = "Update complete" });
+            }
+            return Json(new { status = 500, message = "Update failed" });
         }
-
-        public IActionResult DeleteComment()
+        [HttpPost("DeleteComment")]
+        public IActionResult DeleteComment([FromForm]int Id)
         {
-            return null;
+            bool deletedComment = _commentService.DeleteComment(Id);
+            if (deletedComment)
+            {
+                return Json(new { status = 200, message = "Delete complete" });
+            }
+            return Json(new { status = 500, message = "Delete failed" });
         }
-
-        public IActionResult SearchComment()
+        [HttpGet("SearchComment")]
+        public IActionResult SearchComment(string keyWord)
         {
-            return null;
+            var listComment = _commentService.SearchComment(keyWord);
+            return Json(new { status = 200, listComment, message = "Complete" });
         }
         #endregion
     }

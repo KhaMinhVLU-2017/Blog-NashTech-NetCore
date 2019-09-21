@@ -111,7 +111,7 @@ namespace Business
         /// <returns>ListObject</returns>
         public List<BlogDTO> GetBlogListDTO()
         {
-            var listBlog = _db.Blogs.SelectCover(s => new BlogDTO
+            var listBlog = _db.Blogs.FindByContrain(s => s.Visible == false).Select(s => new BlogDTO
             {
                 BlogID = s.BlogID,
                 Title = s.Title,
@@ -121,7 +121,6 @@ namespace Business
                 AuthorName = s.Author.Fullname,
                 AuthorID = s.AuthorID
             }).OrderByDescending(s => s.crDate).ToList();
-
             return listBlog;
         }
 

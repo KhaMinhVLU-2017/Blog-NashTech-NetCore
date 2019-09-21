@@ -56,5 +56,16 @@ namespace Repository
         {
             return _db.Set<T>().Select(express);
         }
+
+        public void DeleteById(int Id)
+        {
+            var entity = _db.Set<T>().Find(Id);
+            _db.Remove(entity);
+        }
+
+        public void UpdateEntity(T entity)
+        {
+            _db.Set<T>().Update(entity);
+        }
     }
 }

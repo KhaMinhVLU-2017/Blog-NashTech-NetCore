@@ -24,6 +24,8 @@ using Entities.Models;
 using Contracts;
 using Repository;
 using Business;
+using Business.Implementations;
+using Business.Services;
 
 namespace WebAPI
 {
@@ -68,6 +70,7 @@ namespace WebAPI
             services.AddScoped<IUserService, UserService>();// Can need
             services.AddScoped<IValidService, ValidService>();// Can need
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<ICommentLogic,CommentLogic>();
 
             services.AddCors(action =>
                 action.AddPolicy(MyAllowSpecificOrigins, builder =>
