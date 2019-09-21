@@ -16,6 +16,7 @@ namespace Entities.Models
         public string Fullname { get; set; }
         //FK
         public int RoleID { get; set; }
+        public string Email {get;set;}
         public virtual Role Role { get; set; }
 
         public virtual ICollection<Blog> Blog { get; set; }

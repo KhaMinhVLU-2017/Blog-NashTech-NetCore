@@ -17,7 +17,7 @@ namespace Entities.Models
         [Required]
         public string Sapo { get; set; }
         public string Picture { get; set; }
-
+        public bool isComment {get;set;}
         public DateTime crDate { get; set; }
         public bool Visible {get;set;}
         public virtual int AuthorID { get; set; }

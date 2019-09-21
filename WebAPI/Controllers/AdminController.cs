@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[AdminAuthor]
+    [AdminAuthor]
     public class AdminController : Controller
     {
         private readonly IBlogLogic _blogService;
@@ -95,6 +95,19 @@ namespace WebAPI.Controllers
             var listComment = _commentService.SearchComment(keyWord);
             return Json(new { status = 200, listComment, message = "Complete" });
         }
+        #endregion
+    
+        #region User
+        public IActionResult ResetPassWord(string userId){
+            return null;
+        }
+        #endregion
+    
+        #region BlockFeature
+        public IActionResult BlockCommentAtBlog(string blogId){
+            return null;
+        }
+
         #endregion
     }
 }
