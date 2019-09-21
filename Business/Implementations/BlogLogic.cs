@@ -164,7 +164,8 @@ namespace Business
                     Title = blog.Title,
                     crDate = DateTime.Now,
                     AuthorID = decodeUser.UserID,
-                    Picture = namePicture
+                    Picture = namePicture,
+                    Visible= true
                 };
 
                 _db.Blogs.Insert(blogNew);

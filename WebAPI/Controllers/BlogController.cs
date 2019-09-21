@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using System.Data.SqlClient;
 using JWT;
 using JWT.Serializers;
-using Microsoft.Extensions.Options;
-using WebAPI.Helpers;
-using Newtonsoft.Json;
-using WebAPI.Services;
-using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using LazZiya.ImageResize;
 using Contracts;
 using System.Transactions;
 using Business;
-using Entities.DTO;
+
 
 namespace WebAPI.Controllers
 {

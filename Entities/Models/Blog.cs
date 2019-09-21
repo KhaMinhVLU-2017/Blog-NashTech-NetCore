@@ -19,7 +19,7 @@ namespace Entities.Models
         public string Picture { get; set; }
 
         public DateTime crDate { get; set; }
-
+        public bool Visible {get;set;}
         public virtual int AuthorID { get; set; }
 
         [ForeignKey("AuthorID")]

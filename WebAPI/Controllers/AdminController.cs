@@ -1,19 +1,24 @@
 ﻿using System;
 using Business;
+using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AdminAuthor]
     public class AdminController : Controller
     {
         private readonly IBlogLogic _blogService;
-        public AdminController(IBlogLogic blogService)
+        private readonly IRepositoryWrapper _repoWap;
+        public AdminController(IBlogLogic blogService, IRepositoryWrapper repoWap)
         {
             _blogService = blogService;
+            _repoWap = repoWap;
         }
 
         #region Post
@@ -56,9 +61,11 @@ namespace WebAPI.Controllers
             }
             return Json(new { status = 500, message = "Server interval" });
         }
-
+        [HttpGet("GetLog")]
         public IActionResult SearchBlog()
         {
+            _repoWap.Roles.Insert(new Role{Name="SuperMan"});
+            _repoWap.Save();
             return null;
         }
         #endregion
