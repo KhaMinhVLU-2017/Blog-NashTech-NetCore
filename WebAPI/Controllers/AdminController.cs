@@ -69,6 +69,15 @@ namespace WebAPI.Controllers
         #endregion
 
         #region Comment
+        
+        [HttpGet("Comments")]
+        public IActionResult List(){
+            try {
+                return Json(new {status =200, ListComment= _commentService.ListComment(), message="Complete"});
+            }catch{
+                 return Json(new { status = 500, message = "Server Interval" });
+            }
+        }
         [HttpPost("UpdateComment")]
         public IActionResult EditComment([FromForm]Comment comment)
         {
@@ -107,6 +116,7 @@ namespace WebAPI.Controllers
         public IActionResult BlockCommentAtBlog(string blogId){
             return null;
         }
+        
 
         #endregion
     }

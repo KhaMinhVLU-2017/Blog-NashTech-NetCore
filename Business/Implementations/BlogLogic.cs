@@ -111,7 +111,7 @@ namespace Business
         /// <returns>ListObject</returns>
         public List<BlogDTO> GetBlogListDTO()
         {
-            var listBlog = _db.Blogs.FindByContrain(s => s.Visible == false).Select(s => new BlogDTO
+            var listBlog = _db.Blogs.FindByContrain(s => s.Visible == true).Select(s => new BlogDTO
             {
                 BlogID = s.BlogID,
                 Title = s.Title,
@@ -204,7 +204,7 @@ namespace Business
 
         public List<BlogDTO> SearchBlogWithKey(string key)
         {
-            var listBlog = _db.Blogs.FindByContrain(s => s.Title.Contains(key) || s.Content.Contains(key)).Select(s => new BlogDTO
+            var listBlog = _db.Blogs.FindByContrain(s => s.Title.Contains(key) || s.Content.Contains(key) && s.Visible==true).Select(s => new BlogDTO
             {
                 BlogID = s.BlogID,
                 Title = s.Title,

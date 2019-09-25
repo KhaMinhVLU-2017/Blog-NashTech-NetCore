@@ -45,5 +45,16 @@ namespace Business.Implementations
                 return false;
             }
         }
+
+        public IEnumerable<CommentDTO> ListComment(){
+            return _db.Comments.FindByContrain(null).Select(s => new CommentDTO{
+           CommentID = s.CommentID,
+                Content = s.Content,
+                crDate = s.crDate,
+                UserID = s.UserID,
+                AuthorComment = s.User.Username,
+                TitleBlog = s.Blog.Title
+            }).ToList();
+        }
     }
 }

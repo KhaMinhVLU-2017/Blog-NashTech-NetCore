@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Entities.Models;
 using Newtonsoft.Json;
+using Business.Services;
 
 namespace WebAPI.Controllers { 
     [Route("api/[controller]/[Action]")]
@@ -12,9 +13,11 @@ namespace WebAPI.Controllers {
     public class CommentController : Controller
     {
         private readonly AppMeoContext _db;
-        public CommentController(AppMeoContext db)
+        private readonly ICommentLogic _commentLogic;
+        public CommentController(AppMeoContext db, ICommentLogic commentLogic)
         {
             _db = db;
+            _commentLogic = commentLogic;
         }
 
         [HttpPost]
@@ -101,7 +104,5 @@ namespace WebAPI.Controllers {
                 return Json(new { status = 500, message = "Server Interval" + e});
             }
         }
-
-
     }
 }

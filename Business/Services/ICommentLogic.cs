@@ -12,5 +12,7 @@ namespace Business.Services
         bool DeleteComment(int commentId);
 
         ICollection<CommentDTO> SearchComment(string key);
+
+        IEnumerable<CommentDTO> ListComment();
     }
 }
