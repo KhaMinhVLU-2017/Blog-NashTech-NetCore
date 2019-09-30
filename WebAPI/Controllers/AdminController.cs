@@ -52,7 +52,15 @@ namespace WebAPI.Controllers
                 return Json(new { status = 500, message = "Update failed" + e });
             }
         }
+        
+        [HttpGet("ListPost")]
+        public IActionResult ListPost()
+        {
+            var listBlog = _blogService.GetBlogListDTO();
 
+            return Json(new { status = 200, listBlog, message = "Complete" });
+        }
+        
         public IActionResult DeletePost([FromForm]int id)
         {
             var roleId = HttpContext.Items["RoleID"];
@@ -69,13 +77,17 @@ namespace WebAPI.Controllers
         #endregion
 
         #region Comment
-        
+
         [HttpGet("Comments")]
-        public IActionResult List(){
-            try {
-                return Json(new {status =200, ListComment= _commentService.ListComment(), message="Complete"});
-            }catch{
-                 return Json(new { status = 500, message = "Server Interval" });
+        public IActionResult List()
+        {
+            try
+            {
+                return Json(new { status = 200, ListComment = _commentService.ListComment(), message = "Complete" });
+            }
+            catch
+            {
+                return Json(new { status = 500, message = "Server Interval" });
             }
         }
         [HttpPost("UpdateComment")]
@@ -105,18 +117,20 @@ namespace WebAPI.Controllers
             return Json(new { status = 200, listComment, message = "Complete" });
         }
         #endregion
-    
+
         #region User
-        public IActionResult ResetPassWord(string userId){
+        public IActionResult ResetPassWord(string userId)
+        {
             return null;
         }
         #endregion
-    
+
         #region BlockFeature
-        public IActionResult BlockCommentAtBlog(string blogId){
+        public IActionResult BlockCommentAtBlog(string blogId)
+        {
             return null;
         }
-        
+
 
         #endregion
     }
