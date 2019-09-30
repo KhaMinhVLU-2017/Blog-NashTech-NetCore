@@ -57,7 +57,6 @@ namespace WebAPI.Controllers
         public IActionResult ListPost()
         {
             var listBlog = _blogService.GetBlogListDTO();
-
             return Json(new { status = 200, listBlog, message = "Complete" });
         }
         
@@ -90,6 +89,7 @@ namespace WebAPI.Controllers
                 return Json(new { status = 500, message = "Server Interval" });
             }
         }
+
         [HttpPost("UpdateComment")]
         public IActionResult EditComment([FromForm]Comment comment)
         {
@@ -100,6 +100,7 @@ namespace WebAPI.Controllers
             }
             return Json(new { status = 500, message = "Update failed" });
         }
+        
         [HttpPost("DeleteComment")]
         public IActionResult DeleteComment([FromForm]int Id)
         {
@@ -110,6 +111,7 @@ namespace WebAPI.Controllers
             }
             return Json(new { status = 500, message = "Delete failed" });
         }
+        
         [HttpGet("SearchComment")]
         public IActionResult SearchComment(string keyWord)
         {

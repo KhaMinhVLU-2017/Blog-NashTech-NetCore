@@ -38,7 +38,9 @@ namespace Business.Implementations
         public bool UpdateComment(Comment comment)
         {
             try {
-                _db.Comments.UpdateEntity(comment);
+                var commentOld = _db.Comments.FindByID(comment.CommentID);
+                commentOld.Content = comment.Content;
+                _db.Comments.UpdateEntity(commentOld);
                 _db.Save();
                 return true;
             }catch {
@@ -53,7 +55,8 @@ namespace Business.Implementations
                 crDate = s.crDate,
                 UserID = s.UserID,
                 AuthorComment = s.User.Username,
-                TitleBlog = s.Blog.Title
+                TitleBlog = s.Blog.Title,
+                BlogId = s.BlogID
             }).ToList();
         }
     }

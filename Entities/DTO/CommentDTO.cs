@@ -16,5 +16,7 @@ namespace Entities.DTO
         public string AuthorComment { get; set; }
 
         public string TitleBlog {get;set;}
+
+        public int BlogId {get;set;}
     }
 }
